@@ -6,20 +6,34 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/22 14:23:12 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:44:56 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+ * pthread_createしたときに呼ばれる関数
+ * 食事、睡眠、死亡などのアクションが行われる
+ */
 void	*ft_philo_thread(void *v_philosopher)
 {
 	t_philosopher	*philosopher_;
 
 	philosopher_ = v_philosopher;
+	while (true)
+	{
+		//食べる
+		//寝る
+		//考える
+		//死亡判定
+	}
 }
 
-bool	ft_create_philo(t_philosophers *philosophers)
+/*
+ * 哲学者分のthreadを作成し、処理を実行
+ */
+bool	ft_create_thread(t_philosophers *philosophers)
 {
 	size_t		i_;
 	pthread_t	*thread;

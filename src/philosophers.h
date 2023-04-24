@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/23 13:43:17 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:37:32 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,25 @@ enum e_status {
 };
 
 typedef struct s_philosopher {
-	int				number;
-	int				status;
-	pthread_mutex_t	right_fork;
-	pthread_mutex_t	left_fork;
+	int	number;
+	int	status;
+	int	right_fork;
+	int	left_fork;
 }	t_philosopher;
 
 typedef struct s_philosophers {
 	t_philosopher	*philosopher;
+	pthread_mutex_t	*forks;
 	int				num_people;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
 	int				philosopher_eating_count;
-	// size_t			remaining_forks;
+	timeval			start_time;
 }	t_philosophers;
 
 //thread.c
-bool	ft_create_philo(t_philosophers *philosophers);
+bool	ft_create_thread(t_philosophers *philosophers);
 //action.c
 bool	ft_put_has_fork(t_philosopher *philo, time_t timestamp);
 bool	ft_put_eat(t_philosopher *philo, time_t timestamp);
