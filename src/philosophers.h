@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/24 20:37:32 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:14:48 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ enum e_status {
 	DEAD
 };
 
+typedef struct s_elapsed {
+	int	start_time;
+	int	eat_time;
+	int	action_time;
+}	t_elapsed;
+
 typedef struct s_philosopher {
-	int	number;
-	int	status;
-	int	right_fork;
-	int	left_fork;
+	t_elapsed	elapsed;
+	int			number;
+	int			status;
+	int			before_status;
+	int			right_fork;
+	int			left_fork;
 }	t_philosopher;
 
 typedef struct s_philosophers {
@@ -43,8 +51,13 @@ typedef struct s_philosophers {
 	int				eat_time;
 	int				sleep_time;
 	int				philosopher_eating_count;
-	timeval			start_time;
+	struct timeval	start_time;
 }	t_philosophers;
+
+typedef struct s_philo_group {
+	t_philosopher	*philosopher;
+	t_philosophers	*philosophers;
+}	t_philo_group;
 
 //thread.c
 bool	ft_create_thread(t_philosophers *philosophers);
@@ -54,6 +67,8 @@ bool	ft_put_eat(t_philosopher *philo, time_t timestamp);
 bool	ft_put_sleep(t_philosopher *philo, time_t timestamp);
 bool	ft_put_think(t_philosopher *philo, time_t timestamp);
 bool	ft_put_died(t_philosopher *philo, time_t timestamp);
+//time.c
+
 
 //ft_atoi.c
 int		ft_atoi(const char *str);

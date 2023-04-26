@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:07:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/24 20:37:46 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:51:47 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ bool	ft_set_philosopher(t_philosophers *philosophers)
 	{
 		philosophers->philosopher[i_].number = (int)i_;
 		philosophers->philosopher[i_].status = IDLE;
+		philosophers->philosopher[i_].before_status = IDLE;
 		philosophers->philosopher[i_].left_fork = i_ + 1;
 		if (i_ == 0)
 			philosophers->philosopher[i_].right_fork = philosophers->num_people;
@@ -123,6 +124,7 @@ int	main(void)
 		|| ft_create_thread(&philosophers))
 	{
 		printf ("Error\n");
+		// ft_free(philosophers);
 		return (0);
 	}
 	return (0);
