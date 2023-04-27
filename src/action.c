@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:43:37 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/23 13:44:27 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:16:31 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 /*
  * フォークを持つ
  */
-bool	ft_put_has_fork(t_philosopher *philo, time_t timestamp)
+//TODO: プロトタイプをヘッダーと合わせる、出力関数を修正する
+bool	ft_put_has_fork(t_philosopher *philo, struct timeval timestamp)
 {
 	int	rev_;
 
-	rev_ = printf("%ld %d  has taken a fork\n", timestamp * 1000, philo->number);
+	rev_ = printf("%ld%d %d  has taken a fork\n", timestamp.tv_sec, timestamp.tv_usec / 1000, philo->number);
 	if (rev_ < 0)
 		return (true);
 	return (false);

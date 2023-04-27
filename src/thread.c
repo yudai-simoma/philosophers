@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/26 20:16:14 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:16:32 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ bool	ft_is_dead(t_philosophers *philosophers, t_philosopher *philosopher)
 	return (false);
 }
 
+//寝る関数
+void	ft_start_sleeping()
+{
+
+}
+
 /*
  * pthread_createしたときに呼ばれる関数
  * 食事、睡眠、死亡などのアクションが行われる
@@ -115,20 +121,14 @@ void	*ft_philo_thread(void *v_philo_group)
 		{
 			pthread_mutex_lock(&philosophers_->forks[philosopher_->left_fork]);
 			pthread_mutex_lock(&philosophers_->forks[philosopher_->right_fork]);
-
+			ft_start_eating();
 			pthread_mutex_unlock(&philosophers_->forks[philosopher_->left_fork]);
 			pthread_mutex_unlock(&philosophers_->forks[philosopher_->right_fork]);
 		}
 		//寝る
-		if (ft_cat_sleep(philosophers_, philosopher_))
-		{
-
-		}
+		ft_start_sleeping(philosophers_, philosopher_);
 		//考える
-		if (ft_cat_think(philosophers_, philosopher_))
-		{
-
-		}
+		ft_start_thinking();
 		//死亡判定
 		if (ft_is_dead(philosophers_, philosopher_))
 		{
