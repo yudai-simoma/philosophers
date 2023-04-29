@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:07:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/26 19:51:47 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:34:55 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ bool	ft_is_error(int argc, char **argv)
 bool	ft_set_pram(int ac, char **av, t_philosophers *philosophers)
 {
 	int	err_flg_;
-
-	philosophers->forks = (pthread_mutex_t *)malloc(
-			sizeof(pthread_mutex_t) * philosophers->num_people);
-	if (philosophers->forks == NULL)
-		return (true);
 	philosophers->num_people = atoi(av[1]);
 	philosophers->die_time = atoi(av[2]);
 	philosophers->eat_time = atoi(av[3]);
@@ -63,11 +58,15 @@ bool	ft_set_pram(int ac, char **av, t_philosophers *philosophers)
 /*
  * コマンドライン引数で受けっとった値を構造体へ格納
  */
-bool	ft_set_pram(t_philosophers *philosophers)
+bool	ft_set_philosophers(t_philosophers *philosophers)
 {
 	int	i_;
 	int	err_flg_;
 
+	// philosophers->philosopher = (t_philosopher *)malloc(
+	// 		sizeof(t_philosopher) * philosophers->num_people);
+	// if (philosophers->philosopher == NULL)
+	// 	return (true);
 	philosophers->forks = (pthread_mutex_t *)malloc(
 			sizeof(pthread_mutex_t) * philosophers->num_people);
 	if (philosophers->forks == NULL)
@@ -75,7 +74,7 @@ bool	ft_set_pram(t_philosophers *philosophers)
 	i_ = 0;
 	while (i_ < philosophers->num_people)
 	{
-		err_flg_ = pthread_mutex_init(&philosophers->philosopher[i_], NULL);
+		err_flg_ = pthread_mutex_init(&philosophers->forks[i_], NULL);
 		if (err_flg_ != 0)
 			return (true);
 		i_++;
@@ -85,7 +84,7 @@ bool	ft_set_pram(t_philosophers *philosophers)
 
 bool	ft_set_philosopher(t_philosophers *philosophers)
 {
-	size_t	i_;
+	int	i_;
 
 	philosophers->philosopher = (t_philosopher *)malloc(
 			sizeof(t_philosopher) * philosophers->num_people);
@@ -97,11 +96,11 @@ bool	ft_set_philosopher(t_philosophers *philosophers)
 		philosophers->philosopher[i_].number = (int)i_;
 		philosophers->philosopher[i_].status = IDLE;
 		philosophers->philosopher[i_].before_status = IDLE;
-		philosophers->philosopher[i_].left_fork = i_ + 1;
+		philosophers->philosopher[i_].left_fork = i_;
 		if (i_ == 0)
-			philosophers->philosopher[i_].right_fork = philosophers->num_people;
+			philosophers->philosopher[i_].right_fork = philosophers->num_people - 1;
 		else
-			philosophers->philosopher[i_].right_fork = i_;
+			philosophers->philosopher[i_].right_fork = i_ - 1;
 		i_++;
 	}
 	return (false);
@@ -119,8 +118,8 @@ int	main(void)
 
 	if (ft_is_error(argc, argv)
 		|| ft_set_pram(argc, argv, &philosophers)
+		|| ft_set_philosophers(&philosophers)
 		|| ft_set_philosopher(&philosophers)
-		|| ft_create_forks(&philosophers)
 		|| ft_create_thread(&philosophers))
 	{
 		printf ("Error\n");

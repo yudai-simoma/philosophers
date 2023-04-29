@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/26 20:14:48 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:57:42 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,18 @@ typedef struct s_philo_group {
 //thread.c
 bool	ft_create_thread(t_philosophers *philosophers);
 //action.c
-bool	ft_put_has_fork(t_philosopher *philo, time_t timestamp);
-bool	ft_put_eat(t_philosopher *philo, time_t timestamp);
+// bool	ft_has_fork(pthread_mutex_t *fork,
+// 			int number, struct timeval start_time);
+bool	ft_has_fork(pthread_mutex_t *fork,
+			int number, struct timeval start_time, int flg);
+bool	ft_start_eating(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
+			int number, struct timeval start_time);
 bool	ft_put_sleep(t_philosopher *philo, time_t timestamp);
 bool	ft_put_think(t_philosopher *philo, time_t timestamp);
 bool	ft_put_died(t_philosopher *philo, time_t timestamp);
 //time.c
-
-
+bool	ft_get_elapsed_time(struct timeval start_time,
+			struct timeval *elapsed_time);
 //ft_atoi.c
 int		ft_atoi(const char *str);
 //ft_isdigit.c
