@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/27 20:16:32 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/29 20:12:24 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,6 @@ void	ft_free_exit(t_philo_group	*philo_group_)
 {
 	exit(1);
 }
-
-/*
- * スタートからの経過時間を取得する
- */
-bool	ft_get_elapsed_time(t_philosophers	*philosophers, t_elapsed *elapsed)
-{
-	struct timeval	tmp_time_;
-	int				err_flg_;
-
-	err_flg_ = gettimeofday(&tmp_time_, NULL);
-	elapsed->start_time = tmp_time_.tv_sec - philosophers->start_time.tv_sec;
-	if (err_flg_ < 0)
-		return (true);
-	return (false);
-}
-
 /*
  * アクションからの経過時間
  */
@@ -114,26 +98,35 @@ void	*ft_philo_thread(void *v_philo_group)
 	philosophers_ = philo_group_->philosophers;
 	while (true)
 	{
-		if (ft_get_elapsed_time(philosophers_, &philosopher_->elapsed))
-			ft_free_exit(philo_group_);
+		if (philosopher_->number % 2 == 0)
+		{
+			if (ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
+					philosopher_->number, philosophers_->start_time, 1)
+				|| ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
+					philosopher_->number, philosophers_->start_time, 2))
+				ft_free_exit(philo_group_);
+		}
+		else
+		{
+			if (ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
+					philosopher_->number, philosophers_->start_time, 2)
+				|| ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
+					philosopher_->number, philosophers_->start_time, 1))
+				ft_free_exit(philo_group_);
+		}
 		//食べる
-		if (ft_can_eat(philosophers_, philosopher_))
-		{
-			pthread_mutex_lock(&philosophers_->forks[philosopher_->left_fork]);
-			pthread_mutex_lock(&philosophers_->forks[philosopher_->right_fork]);
-			ft_start_eating();
-			pthread_mutex_unlock(&philosophers_->forks[philosopher_->left_fork]);
-			pthread_mutex_unlock(&philosophers_->forks[philosopher_->right_fork]);
-		}
-		//寝る
-		ft_start_sleeping(philosophers_, philosopher_);
-		//考える
-		ft_start_thinking();
-		//死亡判定
-		if (ft_is_dead(philosophers_, philosopher_))
-		{
+		if (ft_start_eating(&philosophers_->forks[philosopher_->left_fork],
+				&philosophers_->forks[philosopher_->right_fork], philosopher_->number, philosophers_->start_time))
+			ft_free_exit(philo_group_);
+		// //寝る
+		// ft_start_sleeping(philosophers_, philosopher_);
+		// //考える
+		// ft_start_thinking();
+		// //死亡判定
+		// if (ft_is_dead(philosophers_, philosopher_))
+		// {
 
-		}
+		// }
 	}
 }
 
@@ -148,13 +141,13 @@ bool	ft_create_thread(t_philosophers *philosophers)
 
 	thread_ = (pthread_t *)malloc(sizeof(pthread_t) * philosophers->num_people);
 	if (thread_ == NULL)
-		return (false);
+		return (true);
 	philo_group_ = (t_philo_group *)malloc(
 			sizeof(t_philo_group) * philosophers->num_people);
 	if (philo_group_ == NULL)
 	{
 		free(thread_);
-		return (false);
+		return (true);
 	}
 	i_ = 0;
 	while (i_ < philosophers->num_people)
@@ -164,7 +157,13 @@ bool	ft_create_thread(t_philosophers *philosophers)
 		pthread_create(&thread_[i_], NULL, ft_philo_thread, &philo_group_[i_]);
 		i_++;
 	}
+	i_ = 0;
+	while (i_ < philosophers->num_people)
+	{
+		pthread_join(thread_[i_], NULL);
+		i_++;
+	}
 	free(thread_);
 	free(philo_group_);
-	return (true);
+	return (false);
 }

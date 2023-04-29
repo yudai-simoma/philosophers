@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:43:37 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/27 20:16:31 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:57:30 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@
  * フォークを持つ
  */
 //TODO: プロトタイプをヘッダーと合わせる、出力関数を修正する
-bool	ft_put_has_fork(t_philosopher *philo, struct timeval timestamp)
+bool	ft_has_fork(pthread_mutex_t *fork,
+	int number, struct timeval start_time, int flg)
 {
-	int	rev_;
+	int				rev_;
+	struct timeval	elapsed_time_;
 
-	rev_ = printf("%ld%d %d  has taken a fork\n", timestamp.tv_sec, timestamp.tv_usec / 1000, philo->number);
+	if (ft_get_elapsed_time(start_time, &elapsed_time_))
+		return (true);
+	rev_ = pthread_mutex_lock(fork);
+	// printf("rev_ = %d\n", rev_);
+	if (rev_ != 0)
+		return (true);
+	rev_ = printf("%ld%d %d has taken a %dfork\n",
+			elapsed_time_.tv_sec, elapsed_time_.tv_usec / 1000, number, flg);
 	if (rev_ < 0)
 		return (true);
 	return (false);
@@ -29,12 +38,23 @@ bool	ft_put_has_fork(t_philosopher *philo, struct timeval timestamp)
 /*
  * 食べる
  */
-bool	ft_put_eat(t_philosopher *philo, time_t timestamp)
+bool	ft_start_eating(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
+	int number, struct timeval start_time)
 {
-	int	rev_;
+	int				rev_;
+	struct timeval	elapsed_time_;
 
-	rev_ = printf("%ld %d is eating\n", timestamp * 1000, philo->number);
+	if (ft_get_elapsed_time(start_time, &elapsed_time_))
+		return (true);
+	rev_ = printf("%ld%d %d is eating\n",
+			elapsed_time_.tv_sec, elapsed_time_.tv_usec / 1000, number);
 	if (rev_ < 0)
+		return (true);
+	rev_ = pthread_mutex_unlock(left_fork);
+	if (rev_ != 0)
+		return (true);
+	rev_ = pthread_mutex_unlock(right_fork);
+	if (rev_ != 0)
 		return (true);
 	return (false);
 }
