@@ -6,13 +6,13 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 11:15:15 by yshimoma          #+#    #+#              #
-#    Updated: 2023/04/29 14:54:07 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/04/30 14:59:24 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = a.out
 SRCS_DIR = ./src
-SRCS = main.c thread.c action.c time.c\
+SRCS = main.c thread.c action.c action_utils.c time.c\
 	ft_atoi.c ft_isdigit.c
 vpath %.c ${SRCS_DIR}
 OBJ_DIR = ./obj

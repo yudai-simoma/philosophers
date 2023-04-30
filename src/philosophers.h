@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/29 18:57:42 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 14:58:18 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,28 @@
 # include <stdbool.h>
 # include <pthread.h>	//スレッド関数用
 # include <sys/time.h>	//システム時間取得用
+# include <unistd.h>	//sleep関数用,TODO:削除予定
 
-enum e_status {
-	EATING,
-	SLEEPING,
-	THINKING,
-	IDLE,
-	DEAD
-};
+// enum e_status {
+// 	EATING,
+// 	SLEEPING,
+// 	THINKING,
+// 	IDLE,
+// 	DEAD
+// };
 
-typedef struct s_elapsed {
-	int	start_time;
-	int	eat_time;
-	int	action_time;
-}	t_elapsed;
+// typedef struct s_elapsed {
+// 	int	start_time;
+// 	int	eat_time;
+// 	int	action_time;
+// }	t_elapsed;
 
 typedef struct s_philosopher {
-	t_elapsed	elapsed;
-	int			number;
-	int			status;
-	int			before_status;
-	int			right_fork;
-	int			left_fork;
+	// t_elapsed		elapsed;
+	int				number;
+	int				right_fork;
+	int				left_fork;
+	struct timeval	eat_start_time;
 }	t_philosopher;
 
 typedef struct s_philosophers {
@@ -52,6 +52,8 @@ typedef struct s_philosophers {
 	int				sleep_time;
 	int				philosopher_eating_count;
 	struct timeval	start_time;
+	bool			die_flg;
+	bool			error_flg;
 }	t_philosophers;
 
 typedef struct s_philo_group {
@@ -60,22 +62,32 @@ typedef struct s_philo_group {
 }	t_philo_group;
 
 //thread.c
-bool	ft_create_thread(t_philosophers *philosophers);
+void			ft_free_exit(t_philosophers *philosophers,
+					t_philosopher *philosopher);
+bool			ft_create_thread(t_philosophers *philosophers);
 //action.c
-// bool	ft_has_fork(pthread_mutex_t *fork,
-// 			int number, struct timeval start_time);
-bool	ft_has_fork(pthread_mutex_t *fork,
-			int number, struct timeval start_time, int flg);
-bool	ft_start_eating(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
-			int number, struct timeval start_time);
-bool	ft_put_sleep(t_philosopher *philo, time_t timestamp);
-bool	ft_put_think(t_philosopher *philo, time_t timestamp);
-bool	ft_put_died(t_philosopher *philo, time_t timestamp);
+//TODO:	出力結果を変更する
+bool			ft_has_fork(pthread_mutex_t *fork,
+					t_philosophers *philosophers, t_philosopher *philosopher,
+					int flg);
+bool			ft_start_eating(pthread_mutex_t *left_fork,
+					pthread_mutex_t *right_fork, t_philosophers *philosophers,
+					t_philosopher *philosopher);
+bool			ft_start_sleeping(t_philosophers *philosophers,
+					t_philosopher *philosopher);
+bool			ft_put_think(t_philosopher *philo, time_t timestamp);
+bool			ft_is_dead(t_philosophers *philosophers,
+					t_philosopher *philosopher);
 //time.c
-bool	ft_get_elapsed_time(struct timeval start_time,
-			struct timeval *elapsed_time);
+bool			ft_get_elapsed_time(struct timeval start_time,
+					struct timeval *elapsed_time);
+struct timeval	ft_get_time_diff(struct timeval start_time,
+					struct timeval end_time);
 //ft_atoi.c
-int		ft_atoi(const char *str);
+int				ft_atoi(const char *str);
+//ft_action_utils.c
+bool			ft_write_die_flg(bool *die_flg);
+bool			ft_read_die_flg(t_philosophers *philosopher);
 //ft_isdigit.c
-int		ft_isdigit(int c);
+int				ft_isdigit(int c);
 #endif
