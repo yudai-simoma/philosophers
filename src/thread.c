@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/29 20:12:24 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:42:22 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 /*
  * プログラムの終了
  */
-void	ft_free_exit(t_philo_group	*philo_group_)
+void	ft_free_exit(t_philosophers *philosophers, t_philosopher *philosopher)
 {
+	printf("error\n");
 	exit(1);
 }
 /*
@@ -26,62 +27,6 @@ void	ft_free_exit(t_philo_group	*philo_group_)
 // {
 
 // }
-
-/*
- * 食事して良いか判断する関数
- */
-bool	ft_can_eat(t_philosophers *philosophers, t_philosopher *philosopher)
-{
-	if (philosopher->status == IDLE && philosopher->before_status == IDLE)
-		return (true);
-	if (philosopher->status == IDLE && philosopher->before_status == SLEEPING)
-		return (true);
-	if (philosopher->status == IDLE && philosopher->before_status == THINKING)
-		return (true);
-	return (false);
-}
-
-/*
- * 睡眠して良いか判断する関数
- */
-bool	ft_can_sleep(t_philosophers *philosophers, t_philosopher *philosopher)
-{
-	if (philosopher->status == IDLE && philosopher->before_status == EATING)
-		return (true);
-	return (false);
-}
-
-/*
- * 考えて良いか判断する関数
- */
-bool	ft_can_think(t_philosophers *philosophers, t_philosopher *philosopher)
-{
-	if (philosopher->status == IDLE && philosopher->before_status == IDLE)
-		return (true);
-	if (philosopher->status == IDLE && philosopher->before_status == EATING)
-		return (true);
-	if (philosopher->status == IDLE && philosopher->before_status == SLEEPING)
-		return (true);
-	if (philosopher->status == IDLE && philosopher->before_status == THINKING)
-		return (true);
-	return (false);
-}
-
-/*
- * 死亡したか判断する関数
- */
-bool	ft_is_dead(t_philosophers *philosophers, t_philosopher *philosopher)
-{
-	if (philosophers->die_time < philosopher->elapsed.eat_time)
-		return (true);
-	return (false);
-}
-
-//寝る関数
-void	ft_start_sleeping()
-{
-
-}
 
 /*
  * pthread_createしたときに呼ばれる関数
@@ -101,33 +46,36 @@ void	*ft_philo_thread(void *v_philo_group)
 		if (philosopher_->number % 2 == 0)
 		{
 			if (ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
-					philosopher_->number, philosophers_->start_time, 1)
+					philosophers_, philosopher_, 1)
 				|| ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
-					philosopher_->number, philosophers_->start_time, 2))
-				ft_free_exit(philo_group_);
+					philosophers_, philosopher_, 2))
+				break;
 		}
 		else
 		{
 			if (ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
-					philosopher_->number, philosophers_->start_time, 2)
+					philosophers_, philosopher_, 2)
 				|| ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
-					philosopher_->number, philosophers_->start_time, 1))
-				ft_free_exit(philo_group_);
+					philosophers_, philosopher_, 1))
+				break;
 		}
 		//食べる
 		if (ft_start_eating(&philosophers_->forks[philosopher_->left_fork],
-				&philosophers_->forks[philosopher_->right_fork], philosopher_->number, philosophers_->start_time))
-			ft_free_exit(philo_group_);
-		// //寝る
-		// ft_start_sleeping(philosophers_, philosopher_);
+				&philosophers_->forks[philosopher_->right_fork], philosophers_, philosopher_))
+			break;
+		//TODO:makeの修正、処理の停止処理、出力時間、考える処理、threadの中のエラー処理構造体に格納、第六引数の設定
+		//寝る
+		if (ft_start_sleeping(philosophers_, philosopher_))
+			break ;
 		// //考える
 		// ft_start_thinking();
-		// //死亡判定
-		// if (ft_is_dead(philosophers_, philosopher_))
-		// {
-
-		// }
+		//死亡判定
+		if (ft_is_dead(philosophers_, philosopher_))
+		{
+			// sleep(2);
+		}
 	}
+	return (NULL);
 }
 
 /*
@@ -154,13 +102,16 @@ bool	ft_create_thread(t_philosophers *philosophers)
 	{
 		philo_group_[i_].philosopher = &philosophers->philosopher[i_];
 		philo_group_[i_].philosophers = philosophers;
-		pthread_create(&thread_[i_], NULL, ft_philo_thread, &philo_group_[i_]);
+		if (pthread_create(&thread_[i_], NULL, ft_philo_thread, &philo_group_[i_]) != 0)
+			return (true);
 		i_++;
 	}
 	i_ = 0;
 	while (i_ < philosophers->num_people)
 	{
 		pthread_join(thread_[i_], NULL);
+		if (philosophers->error_flg)
+			return (true);
 		i_++;
 	}
 	free(thread_);

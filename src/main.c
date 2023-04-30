@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:07:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/29 18:34:55 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:12:45 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,6 @@ bool	ft_set_philosophers(t_philosophers *philosophers)
 	int	i_;
 	int	err_flg_;
 
-	// philosophers->philosopher = (t_philosopher *)malloc(
-	// 		sizeof(t_philosopher) * philosophers->num_people);
-	// if (philosophers->philosopher == NULL)
-	// 	return (true);
 	philosophers->forks = (pthread_mutex_t *)malloc(
 			sizeof(pthread_mutex_t) * philosophers->num_people);
 	if (philosophers->forks == NULL)
@@ -79,6 +75,8 @@ bool	ft_set_philosophers(t_philosophers *philosophers)
 			return (true);
 		i_++;
 	}
+	philosophers->die_flg = false;
+	philosophers->error_flg = false;
 	return (false);
 }
 
@@ -94,8 +92,6 @@ bool	ft_set_philosopher(t_philosophers *philosophers)
 	while (i_ < philosophers->num_people)
 	{
 		philosophers->philosopher[i_].number = (int)i_;
-		philosophers->philosopher[i_].status = IDLE;
-		philosophers->philosopher[i_].before_status = IDLE;
 		philosophers->philosopher[i_].left_fork = i_;
 		if (i_ == 0)
 			philosophers->philosopher[i_].right_fork = philosophers->num_people - 1;
@@ -112,7 +108,7 @@ bool	ft_set_philosopher(t_philosophers *philosophers)
  */
 int	main(void)
 {
-	char *argv[6] = {"./philosophers", "3", "200", "50", "50", "5"};
+	char *argv[6] = {"./philosophers", "3", "20", "50", "50", "5"};
 	int argc = 6;
 	t_philosophers	philosophers;
 

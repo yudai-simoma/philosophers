@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:43:37 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/29 18:57:30 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 14:58:57 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 /*
  * フォークを持つ
  */
-//TODO: プロトタイプをヘッダーと合わせる、出力関数を修正する
 bool	ft_has_fork(pthread_mutex_t *fork,
-	int number, struct timeval start_time, int flg)
+	t_philosophers *philosophers, t_philosopher *philosopher, int flg)
 {
 	int				rev_;
 	struct timeval	elapsed_time_;
 
-	if (ft_get_elapsed_time(start_time, &elapsed_time_))
+	if (ft_read_die_flg(philosophers)
+		|| ft_get_elapsed_time(philosophers->start_time, &elapsed_time_))
 		return (true);
-	rev_ = pthread_mutex_lock(fork);
-	// printf("rev_ = %d\n", rev_);
-	if (rev_ != 0)
+	if (pthread_mutex_lock(fork) != 0)
 		return (true);
-	rev_ = printf("%ld%d %d has taken a %dfork\n",
-			elapsed_time_.tv_sec, elapsed_time_.tv_usec / 1000, number, flg);
+	rev_ = printf("%ld %d has taken a %dfork\n",
+			elapsed_time_.tv_sec + elapsed_time_.tv_usec / 1000, philosopher->number + 1, flg);
 	if (rev_ < 0)
 		return (true);
 	return (false);
@@ -39,37 +37,63 @@ bool	ft_has_fork(pthread_mutex_t *fork,
  * 食べる
  */
 bool	ft_start_eating(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
-	int number, struct timeval start_time)
+	t_philosophers *philosophers, t_philosopher *philosopher)
 {
-	int				rev_;
 	struct timeval	elapsed_time_;
+	struct timeval	eat_end_time_;
 
-	if (ft_get_elapsed_time(start_time, &elapsed_time_))
+	if (ft_read_die_flg(philosophers)
+		|| ft_get_elapsed_time(philosophers->start_time, &elapsed_time_)
+		|| printf("%ld %d is eating\n", elapsed_time_.tv_sec
+			+ elapsed_time_.tv_usec / 1000, philosopher->number + 1) < 0
+		|| gettimeofday(&philosopher->eat_start_time, NULL) < 0)
 		return (true);
-	rev_ = printf("%ld%d %d is eating\n",
-			elapsed_time_.tv_sec, elapsed_time_.tv_usec / 1000, number);
-	if (rev_ < 0)
-		return (true);
-	rev_ = pthread_mutex_unlock(left_fork);
-	if (rev_ != 0)
-		return (true);
-	rev_ = pthread_mutex_unlock(right_fork);
-	if (rev_ != 0)
-		return (true);
-	return (false);
+    // printf("  start time: %ld.%06d\n", eat_start_time_.tv_sec, eat_start_time_.tv_usec);
+	while (true)
+	{
+		if (gettimeofday(&eat_end_time_, NULL) < 0)
+			return (true);
+		elapsed_time_ = ft_get_time_diff(philosopher->eat_start_time,
+				eat_end_time_);
+		if (elapsed_time_.tv_usec > philosophers->eat_time * 1000)
+		{
+			// printf("Current time: %ld.%06d\n", eat_end_time_.tv_sec, eat_end_time_.tv_usec);
+			if (pthread_mutex_unlock(left_fork) != 0
+				|| pthread_mutex_unlock(right_fork))
+				return (true);
+			return (false);
+		}
+	}
 }
 
 /*
  * 寝る
  */
-bool	ft_put_sleep(t_philosopher *philo, time_t timestamp)
+bool	ft_start_sleeping(t_philosophers *philosophers,
+	t_philosopher *philosopher)
 {
-	int	rev_;
+	struct timeval	elapsed_time_;
+	struct timeval	sleep_start_time_;
+	struct timeval	sleep_end_time_;
 
-	rev_ = printf("%ld %d is sleeping\n", timestamp * 1000, philo->number);
-	if (rev_ < 0)
+	if (ft_read_die_flg(philosophers)
+		|| ft_get_elapsed_time(philosophers->start_time, &elapsed_time_)
+		|| printf("%ld %d is sleeping\n", elapsed_time_.tv_sec
+			+ elapsed_time_.tv_usec / 1000, philosopher->number + 1) < 0
+		|| gettimeofday(&sleep_start_time_, NULL) < 0)
 		return (true);
-	return (false);
+    // printf("  start time: %ld.%06d\n", eat_start_time_.tv_sec, eat_start_time_.tv_usec);
+	while (true)
+	{
+		if (gettimeofday(&sleep_end_time_, NULL) < 0)
+			return (true);
+		elapsed_time_ = ft_get_time_diff(sleep_start_time_, sleep_end_time_);
+		if (elapsed_time_.tv_usec > philosophers->sleep_time * 1000)
+		{
+			// printf("Current time: %ld.%06d\n", eat_end_time_.tv_sec, eat_end_time_.tv_usec);
+			return (false);
+		}
+	}
 }
 
 /*
@@ -86,14 +110,25 @@ bool	ft_put_think(t_philosopher *philo, time_t timestamp)
 }
 
 /*
- * 死亡
+ * 死亡判定
  */
-bool	ft_put_died(t_philosopher *philo, time_t timestamp)
+bool	ft_is_dead(t_philosophers *philosophers,
+	t_philosopher *philosopher)
 {
-	int	rev_;
+	struct timeval	now_time_;
+	struct timeval	elapsed_time_;
 
-	rev_ = printf("%ld %d died\n", timestamp * 1000, philo->number);
-	if (rev_ < 0)
+	if (gettimeofday(&now_time_, NULL) < 0)
 		return (true);
+	elapsed_time_ = ft_get_time_diff(philosopher->eat_start_time, now_time_);
+	if (ft_read_die_flg(philosophers) ||
+		elapsed_time_.tv_usec > philosophers->die_time * 1000)
+	{
+		if (ft_write_die_flg(&philosophers->die_flg)
+			|| printf("%ld %d died\n", elapsed_time_.tv_sec
+				+ elapsed_time_.tv_usec / 1000, philosopher->number + 1) < 0)
+			ft_free_exit(philosophers, philosopher);
+		return (true);
+	}
 	return (false);
 }
