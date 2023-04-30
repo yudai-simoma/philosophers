@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:43:37 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 14:58:57 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 23:48:45 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ bool	ft_has_fork(pthread_mutex_t *fork,
 	int				rev_;
 	struct timeval	elapsed_time_;
 
-	if (ft_read_die_flg(philosophers)
+	if (pthread_mutex_lock(fork) != 0
+		|| ft_read_die_flg(philosophers)
 		|| ft_get_elapsed_time(philosophers->start_time, &elapsed_time_))
-		return (true);
-	if (pthread_mutex_lock(fork) != 0)
 		return (true);
 	rev_ = printf("%ld %d has taken a %dfork\n",
 			elapsed_time_.tv_sec + elapsed_time_.tv_usec / 1000, philosopher->number + 1, flg);
@@ -59,7 +58,7 @@ bool	ft_start_eating(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
 		{
 			// printf("Current time: %ld.%06d\n", eat_end_time_.tv_sec, eat_end_time_.tv_usec);
 			if (pthread_mutex_unlock(left_fork) != 0
-				|| pthread_mutex_unlock(right_fork))
+				|| pthread_mutex_unlock(right_fork) != 0)
 				return (true);
 			return (false);
 		}
@@ -124,10 +123,10 @@ bool	ft_is_dead(t_philosophers *philosophers,
 	if (ft_read_die_flg(philosophers) ||
 		elapsed_time_.tv_usec > philosophers->die_time * 1000)
 	{
-		if (ft_write_die_flg(&philosophers->die_flg)
+		if (ft_write_die_flg(philosophers)
 			|| printf("%ld %d died\n", elapsed_time_.tv_sec
 				+ elapsed_time_.tv_usec / 1000, philosopher->number + 1) < 0)
-			ft_free_exit(philosophers, philosopher);
+			philosophers->die_flg = true;
 		return (true);
 	}
 	return (false);

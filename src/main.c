@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:07:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 13:12:45 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 23:19:18 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ bool	ft_set_philosophers(t_philosophers *philosophers)
 			return (true);
 		i_++;
 	}
+	if(pthread_mutex_init(&philosophers->error_mutex, NULL) != 0)
+		return (true);
 	philosophers->die_flg = false;
 	philosophers->error_flg = false;
 	return (false);

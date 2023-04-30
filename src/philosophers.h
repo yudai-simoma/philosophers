@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 14:58:18 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 23:27:20 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_philosophers {
 	int				philosopher_eating_count;
 	struct timeval	start_time;
 	bool			die_flg;
+	pthread_mutex_t	error_mutex;
 	bool			error_flg;
 }	t_philosophers;
 
@@ -62,8 +63,6 @@ typedef struct s_philo_group {
 }	t_philo_group;
 
 //thread.c
-void			ft_free_exit(t_philosophers *philosophers,
-					t_philosopher *philosopher);
 bool			ft_create_thread(t_philosophers *philosophers);
 //action.c
 //TODO:	出力結果を変更する
@@ -86,7 +85,7 @@ struct timeval	ft_get_time_diff(struct timeval start_time,
 //ft_atoi.c
 int				ft_atoi(const char *str);
 //ft_action_utils.c
-bool			ft_write_die_flg(bool *die_flg);
+bool	ft_write_die_flg(t_philosophers *philosophers);
 bool			ft_read_die_flg(t_philosophers *philosopher);
 //ft_isdigit.c
 int				ft_isdigit(int c);

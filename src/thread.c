@@ -6,27 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 20:42:22 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/30 23:50:02 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-/*
- * プログラムの終了
- */
-void	ft_free_exit(t_philosophers *philosophers, t_philosopher *philosopher)
-{
-	printf("error\n");
-	exit(1);
-}
-/*
- * アクションからの経過時間
- */
-// bool	ft_get_elapsed_time_activity()
-// {
-
-// }
 
 /*
  * pthread_createしたときに呼ばれる関数
@@ -63,7 +47,7 @@ void	*ft_philo_thread(void *v_philo_group)
 		if (ft_start_eating(&philosophers_->forks[philosopher_->left_fork],
 				&philosophers_->forks[philosopher_->right_fork], philosophers_, philosopher_))
 			break;
-		//TODO:makeの修正、処理の停止処理、出力時間、考える処理、threadの中のエラー処理構造体に格納、第六引数の設定
+		//TODO:第六引数の設定、考える処理、threadの中のエラー処理構造体に格納、
 		//寝る
 		if (ft_start_sleeping(philosophers_, philosopher_))
 			break ;
@@ -71,9 +55,7 @@ void	*ft_philo_thread(void *v_philo_group)
 		// ft_start_thinking();
 		//死亡判定
 		if (ft_is_dead(philosophers_, philosopher_))
-		{
-			// sleep(2);
-		}
+			break ;
 	}
 	return (NULL);
 }
