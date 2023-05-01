@@ -6,22 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:12:59 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 12:36:12 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:17:38 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /*
- * ・スタートからの経過時間
- * ・食べてからの経過時間
- * ・アクションからの経過時間
- * ・
- */
-
-/*
  * スタートからの経過時間を取得する
- * TODO:4/29時点で不要
  */
 bool	ft_get_elapsed_time(struct timeval start_time,
 	struct timeval *elapsed_time)
@@ -45,7 +37,8 @@ bool	ft_get_elapsed_time(struct timeval start_time,
 /*
  * 二つの時間を受け取り、その差分を返す関数
  */
-struct timeval	ft_get_time_diff(struct timeval start_time, struct timeval end_time)
+struct timeval	ft_get_time_diff(struct timeval start_time,
+	struct timeval end_time)
 {
 	struct timeval	deff_time_;
 

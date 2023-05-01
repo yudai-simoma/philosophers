@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/30 23:50:02 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:28:39 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,43 @@ void	*ft_philo_thread(void *v_philo_group)
 		if (philosopher_->number % 2 == 0)
 		{
 			if (ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
-					philosophers_, philosopher_, 1)
+					philosophers_, philosopher_)
 				|| ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
-					philosophers_, philosopher_, 2))
-				break;
+					philosophers_, philosopher_))
+				break ;
 		}
 		else
 		{
 			if (ft_has_fork(&philosophers_->forks[philosopher_->right_fork],
-					philosophers_, philosopher_, 2)
+					philosophers_, philosopher_)
 				|| ft_has_fork(&philosophers_->forks[philosopher_->left_fork],
-					philosophers_, philosopher_, 1))
-				break;
+					philosophers_, philosopher_))
+				break ;
 		}
-		//食べる
 		if (ft_start_eating(&philosophers_->forks[philosopher_->left_fork],
-				&philosophers_->forks[philosopher_->right_fork], philosophers_, philosopher_))
-			break;
-		//TODO:第六引数の設定、考える処理、threadの中のエラー処理構造体に格納、
-		//寝る
+				&philosophers_->forks[philosopher_->right_fork],
+				philosophers_, philosopher_))
+			break ;
 		if (ft_start_sleeping(philosophers_, philosopher_))
 			break ;
-		// //考える
-		// ft_start_thinking();
-		//死亡判定
-		if (ft_is_dead(philosophers_, philosopher_))
-			break ;
+		// if (ft_is_dead(philosophers_, philosopher_))
+		// 	break ;
 	}
 	return (NULL);
+}
+
+bool	ft_is_dead_all(t_philosophers *philosophers)
+{
+	int	i_;
+
+	i_ = 0;
+	while (i_ < philosophers->num_people)
+	{
+		if (ft_is_dead(philosophers, &philosophers->philosopher[i_]))
+			return (true);
+		i_++;
+	}
+	return (false);
 }
 
 /*
@@ -84,13 +93,22 @@ bool	ft_create_thread(t_philosophers *philosophers)
 	{
 		philo_group_[i_].philosopher = &philosophers->philosopher[i_];
 		philo_group_[i_].philosophers = philosophers;
-		if (pthread_create(&thread_[i_], NULL, ft_philo_thread, &philo_group_[i_]) != 0)
+		if (pthread_create(&thread_[i_], NULL, ft_philo_thread,
+				&philo_group_[i_]) != 0)
 			return (true);
 		i_++;
+	}
+	while (true)
+	{
+		if (ft_is_dead_all(philosophers))
+			break ;
+			// return (false);
 	}
 	i_ = 0;
 	while (i_ < philosophers->num_people)
 	{
+		// while (true)
+		// 	pthread_detach(thread_[i_]);
 		pthread_join(thread_[i_], NULL);
 		if (philosophers->error_flg)
 			return (true);
