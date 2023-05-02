@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:07:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/05/01 22:48:41 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:12:54 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ bool	ft_is_error(int argc, char **argv)
  */
 bool	ft_set_pram(int ac, char **av, t_philosophers *philosophers)
 {
-	int	err_flg_;
-
 	philosophers->num_people = ft_atoi(av[1]);
 	philosophers->die_time = ft_atoi(av[2]);
 	philosophers->eat_time = ft_atoi(av[3]);
 	philosophers->sleep_time = ft_atoi(av[4]);
 	philosophers->everyone_has_eaten = -1;
-	err_flg_ = gettimeofday(&philosophers->start_time, NULL);
-	if (err_flg_ < 0)
-		return (true);
 	if (ac == 6)
 	{
 		philosophers->philosopher_eat_count = ft_atoi(av[5]);
@@ -111,9 +106,6 @@ bool	ft_set_philosopher(t_philosophers *philosophers)
 				= philosophers->num_people - 1;
 		else
 			philosophers->philosopher[i_].right_fork = i_ - 1;
-		if (gettimeofday(&philosophers->philosopher[i_].eat_start_time,
-				NULL) < 0)
-			return (true);
 		i_++;
 	}
 	return (false);
@@ -151,9 +143,10 @@ bool	ft_free_philo(t_philosophers *philosophers)
  */
 int	main(void)
 {
-	char *argv[5] = {"./philosophers", "3", "200", "120", "120"};
+	char *argv[5] = {"./philosophers", "10", "410", "200", "200"};
+	// char *argv[5] = {"./philosophers", "3", "200", "50", "120"};
 	int argc = 5;
-	// char *argv[6] = {"./philosophers", "2", "200", "120", "120", "8"};
+	// char *argv[6] = {"./philosophers", "5", "800", "200", "200", "7"};
 	// int argc = 6;
 	t_philosophers	philosophers;
 

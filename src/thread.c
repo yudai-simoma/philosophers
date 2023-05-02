@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:12:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/05/01 22:28:39 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:18:50 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	*ft_philo_thread(void *v_philo_group)
 			break ;
 		if (ft_start_sleeping(philosophers_, philosopher_))
 			break ;
-		// if (ft_is_dead(philosophers_, philosopher_))
-		// 	break ;
+		if (ft_is_dead(philosophers_, philosopher_))
+			break ;
 	}
 	return (NULL);
 }
@@ -88,9 +88,14 @@ bool	ft_create_thread(t_philosophers *philosophers)
 		free(thread_);
 		return (true);
 	}
+	if (gettimeofday(&philosophers->start_time, NULL) < 0)
+		return (true);
 	i_ = 0;
 	while (i_ < philosophers->num_people)
 	{
+		if (gettimeofday(&philosophers->philosopher[i_].eat_start_time,
+				NULL) < 0)
+			return (true);
 		philo_group_[i_].philosopher = &philosophers->philosopher[i_];
 		philo_group_[i_].philosophers = philosophers;
 		if (pthread_create(&thread_[i_], NULL, ft_philo_thread,

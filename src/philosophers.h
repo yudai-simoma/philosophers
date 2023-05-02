@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 19:06:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/05/01 16:19:09 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:58:20 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ bool			ft_start_sleeping(t_philosophers *philosophers,
 bool			ft_is_dead(t_philosophers *philosophers,
 					t_philosopher *philosopher);
 //time.c
-bool			ft_get_elapsed_time(struct timeval start_time,
-					struct timeval *elapsed_time);
-struct timeval	ft_get_time_diff(struct timeval start_time,
+time_t			ft_get_time_diff(struct timeval start_time,
 					struct timeval end_time);
 //ft_action_utils.c
 bool			ft_write_die_flg(t_philosophers *philosophers);
