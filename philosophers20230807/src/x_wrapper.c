@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   x_wrapper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 18:05:03 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/08/10 18:12:51 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/08/11 21:49:46 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/08/20 18:57:35 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include <stdbool.h>
+#include <stdlib.h>
+#include "libft/libft.h"
 
-//utils.c
-bool	ft_is_error(int argc, char **argv);
-bool	ft_set_pram(int ac, char **av, t_philosophers *philosophers);
-bool	ft_set_philosophers(t_philosophers *philosophers);
-bool	ft_set_philosopher(t_philosophers *philosophers);
+void	*ft_xmalloc(size_t size)
+{
+	void	*tmp;
 
-//ft_atoi.c
-int				ft_atoi(const char *str);
-//ft_isdigit.c
-int				ft_isdigit(int c);
-
-#endif
+	tmp = malloc (size);
+	if (tmp == NULL)
+		return (NULL);
+	return (tmp);
+}

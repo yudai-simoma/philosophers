@@ -1,2 +1,4 @@
 a.out
 /src/obj/
+*.d
+*.o
