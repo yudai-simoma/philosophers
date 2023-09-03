@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   main_thread_init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/08/20 18:47:57 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:10:44 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "philo.h"
-#include "utils.h"
-#include "libft/libft.h"
-
-static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
-{
-	args_info->number_of_philosophers = ft_atoi(argv[1]);
-	args_info->time_to_die = ft_atoi(argv[2]);
-	args_info->time_to_eat = ft_atoi(argv[3]);
-	args_info->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		args_info->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-}
+#include "libft.h"
+#include "types.h"
+#include "get_current_time.h"
 
 static void	_philosopher_init(t_philosopher philo, bool *is_error)
 {
@@ -64,6 +54,19 @@ static void	_philo_thread_init(
 	}
 }
 
+static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
+{
+	args_info->number_of_philosophers = ft_atoi(argv[1]);
+	args_info->time_to_die = ft_atoi(argv[2]);
+	args_info->time_to_eat = ft_atoi(argv[3]);
+	args_info->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		args_info->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+}
+
+/**
+ * t_main_threadに値を初期設定する関数
+ */
 int	main_thread_init(
 	int argc, char **argv, t_main_thread *main_thread, bool *is_error)
 {

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   x_wrapper.c                                        :+:      :+:    :+:   */
+/*   is_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 21:49:46 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/08/20 18:57:35 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 12:02:18 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 12:03:16 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft/libft.h"
+#ifndef IS_ERROR_H
+# define IS_ERROR_H
 
-void	*ft_xmalloc(size_t size)
-{
-	void	*tmp;
+# include <stdbool.h>
 
-	tmp = malloc (size);
-	if (tmp == NULL)
-		return (NULL);
-	return (tmp);
-}
+bool	is_error(int argc, char **argv, bool *is_program_error);
+
+#endif
