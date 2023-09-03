@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 12:10:57 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:08:36 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
  * 哲学者一人の構造体
  */
 typedef struct s_philosopher {
-	bool			has_right_fork;
-	bool			has_left_fork;
+	int				right_fork;
+	int				left_fork;
 	time_t			eat_start_time;
 	pthread_mutex_t	eat_start_time_mutex;
 	int				eat_count;
@@ -31,8 +31,7 @@ typedef struct s_philosopher {
 typedef struct s_philo_thread {
 	int				philo_id;
 	t_philosopher	philo;
-	pthread_mutex_t	fork;
-	// pthread_mutex_t	philo_thread;
+	pthread_mutex_t	philo_thread_mutex;
 }	t_philo_thread;
 
 typedef struct s_args_info {
@@ -48,6 +47,7 @@ typedef struct s_args_info {
  */
 typedef struct s_main_thread {
 	t_philo_thread	*philo_thread;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	main_thread_mutex;
 	pthread_mutex_t	print_mutex;
 	t_args_info		args_info;

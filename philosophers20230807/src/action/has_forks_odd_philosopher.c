@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_error.c                                  :+:      :+:    :+:   */
+/*   has_forks_odd_philosopher.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:45:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:03:29 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 15:24:29 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 17:33:14 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdbool.h>
-#include "libft.h"
+#include <types.h>
 
-void	ft_putstr_error(char *str, bool *is_error)
+/**
+ * 奇数の哲学者がフォークを持つ
+*/
+void	has_forks_odd_philosopher(
+	t_main_thread *main_thread,
+	t_philo_thread *philo_thread)
 {
-
-	if (write(STDERR_FILENO, str, ft_strlen(str)) == -1)
-		*is_error = true;
-	if (write(STDERR_FILENO, NEWLINE_STR, 1) == -1)
-		*is_error = true;
+	usleep(10);
+	has_fork(main_thread->forks[philo_thread->philo.right_fork],
+		main_thread, philo_thread);
+	has_fork(main_thread->forks[philo_thread->philo.left_fork],
+		main_thread, philo_thread);
 }

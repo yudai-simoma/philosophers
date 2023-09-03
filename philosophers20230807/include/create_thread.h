@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_error.c                                  :+:      :+:    :+:   */
+/*   create_thread.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:45:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:03:29 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 13:58:24 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 14:17:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdbool.h>
-#include "libft.h"
+#ifndef CREATE_THREAD_H
+# define CREATE_THREAD_H
 
-void	ft_putstr_error(char *str, bool *is_error)
-{
+# include <stdbool.h>
+# include "types.h"
 
-	if (write(STDERR_FILENO, str, ft_strlen(str)) == -1)
-		*is_error = true;
-	if (write(STDERR_FILENO, NEWLINE_STR, 1) == -1)
-		*is_error = true;
-}
+bool	create_thread(t_main_thread *main_thread, bool *is_error);
+
+#endif

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_error.c                                  :+:      :+:    :+:   */
+/*   philo_thread.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:45:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:03:29 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 15:07:46 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 15:23:27 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdbool.h>
-#include "libft.h"
+#ifndef PHILO_THREAD_H
+# define PHILO_THREAD_H
 
-void	ft_putstr_error(char *str, bool *is_error)
-{
+void	philo_thread(void *tmp);
 
-	if (write(STDERR_FILENO, str, ft_strlen(str)) == -1)
-		*is_error = true;
-	if (write(STDERR_FILENO, NEWLINE_STR, 1) == -1)
-		*is_error = true;
-}
+#endif

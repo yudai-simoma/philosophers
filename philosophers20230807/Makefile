@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/03 12:09:23 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/03 14:21:41 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS	=	\
 			${SRC_DIR}/utils/ft_putendl.c \
 			${SRC_DIR}/utils/ft_putstr.c \
 			${SRC_DIR}/utils/ft_putstr_error.c \
-			${SRC_DIR}/utils/get_current_time.c \
+			${SRC_DIR}/utils/set_current_time.c \
 			${LIBFT_DIR}/ft_atoi.c \
 			${LIBFT_DIR}/ft_isdigit.c \
 			${LIBFT_DIR}/ft_strlen.c \

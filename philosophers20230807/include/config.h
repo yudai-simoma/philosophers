@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_error.c                                  :+:      :+:    :+:   */
+/*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:45:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:03:29 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 16:59:57 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 22:08:33 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdbool.h>
-#include "libft.h"
+#ifndef CONFIG_H
+# define CONFIG_H
 
-void	ft_putstr_error(char *str, bool *is_error)
-{
+# define ARGS_ERR_MSG		("Invalid arguments.")
+# define NULL_CHAR			('\0')
+# define NEWLINE_STR		("\n")
+# define FIRST_PHILO_ID		(0)
+# define RIGHT_FORK_DIFF	(1)
+# define MSG_FORK_TAKEN 	("has taken a fork")
+# define MSG_EAT			("is eating")
+# define MSG_SLEEP			("is sleeping")
+# define MSG_THINK			("is thinking")
+# define MSG_DIE			("died")
 
-	if (write(STDERR_FILENO, str, ft_strlen(str)) == -1)
-		*is_error = true;
-	if (write(STDERR_FILENO, NEWLINE_STR, 1) == -1)
-		*is_error = true;
-}
+#endif

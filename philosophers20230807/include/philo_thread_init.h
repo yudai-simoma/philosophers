@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_current_time.h                                 :+:      :+:    :+:   */
+/*   philo_thread_init.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:47:21 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 11:48:28 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 16:19:50 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 17:22:27 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_CURRENT_TIME_H
-# define GET_CURRENT_TIME_H
+#ifndef PHILO_THREAD_INIT_H
+# define PHILO_THREAD_INIT_H
 
-# include <stdbool.h>
-# include <pthread.h>
-# include <sys/time.h>
+# include <types.h>
 
-time_t	get_current_time(pthread_mutex_t *mutex, bool *is_error);
+int	philo_thread_init(
+		t_philo_thread *philo_thread,
+		const int number_of_philosophers);
 
 #endif

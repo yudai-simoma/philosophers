@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:16:48 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 12:10:05 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:02:47 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /**
  * エラーの場合:true, エラー出ない場合:false
  */
-bool	is_error(int argc, char **argv, bool *is_program_error)
+bool	is_error(int argc, char **argv)
 {
 	int		i;
 	size_t	j;
@@ -33,7 +33,7 @@ bool	is_error(int argc, char **argv, bool *is_program_error)
 		if (ft_strlen(argv[i]) > 9)
 			is_error = true;
 		j = 0;
-		while (argv[i][j] != '\0')
+		while (argv[i][j] != NULL_CHAR)
 		{
 			if (!ft_isdigit(argv[i][j]))
 				is_error = true;
@@ -42,6 +42,6 @@ bool	is_error(int argc, char **argv, bool *is_program_error)
 		i++;
 	}
 	if (is_error)
-		ft_putstr_error("Invalid arguments.", is_program_error);
+		ft_putstr_error(ARGS_ERR_MSG, is_error);
 	return (is_error);
 }

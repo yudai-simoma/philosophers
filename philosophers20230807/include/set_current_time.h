@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_error.c                                  :+:      :+:    :+:   */
+/*   set_current_time.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 11:45:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:03:29 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/03 11:47:21 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/03 17:39:19 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdbool.h>
-#include "libft.h"
+#ifndef SET_CURRENT_TIME_H
+# define SET_CURRENT_TIME_H
 
-void	ft_putstr_error(char *str, bool *is_error)
-{
+# include <stdbool.h>
+# include <pthread.h>
+# include <sys/time.h>
 
-	if (write(STDERR_FILENO, str, ft_strlen(str)) == -1)
-		*is_error = true;
-	if (write(STDERR_FILENO, NEWLINE_STR, 1) == -1)
-		*is_error = true;
-}
+time_t	set_current_time(pthread_mutex_t *mutex, bool *is_error);
+
+#endif
