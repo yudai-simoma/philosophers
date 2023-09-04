@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/04 16:08:01 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/04 20:24:14 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,18 @@ INCLUDE		=	-Iinclude -Ilibft
 # (
 #   find src -type f -name "*.c" | sort | sed 's/^src\//\${SRC_DIR}\//;s/$/ \\/'
 #   find libft -type f -name "*.c" | sort | sed 's/^libft\//\${LIBFT_DIR}\//;s/$/ \\/'
-# )
+# ) | pbcopy
 SRCS	=	\
 			main.c \
 			${SRC_DIR}/action/has_fork.c \
 			${SRC_DIR}/action/has_forks_even_philosopher.c \
 			${SRC_DIR}/action/has_forks_odd_philosopher.c \
 			${SRC_DIR}/action/is_program_stopped.c \
+			${SRC_DIR}/action/is_program_stopped_main.c \
+			${SRC_DIR}/action/is_program_stopped_philo.c \
 			${SRC_DIR}/action/print_message.c \
+			${SRC_DIR}/action/print_message_main.c \
+			${SRC_DIR}/action/print_message_philo.c \
 			${SRC_DIR}/action/start_eating.c \
 			${SRC_DIR}/action/start_sleeping.c \
 			${SRC_DIR}/error/is_error.c \

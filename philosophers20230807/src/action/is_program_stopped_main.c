@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   has_forks_odd_philosopher.c                       :+:      :+:    :+:   */
+/*   is_program_stopped_main.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 15:24:29 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:33:14 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/04 19:52:45 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/04 20:25:03 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdbool.h>
 #include "types.h"
 #include "action.h"
 
-/**
- * 奇数の哲学者がフォークを持つ
-*/
-void	has_forks_odd_philosopher(t_philo_thread *philo_thread)
+/*
+ * 死亡フラグの読み取りを行う
+ */
+bool	is_program_stopped_main(t_main_thread *main_thread)
 {
-	usleep(10);
-	has_fork(&philo_thread->main_forks[philo_thread->philo.right_fork],
-		philo_thread);
-	has_fork(&philo_thread->main_forks[philo_thread->philo.left_fork],
-		philo_thread);
+	return (
+		is_program_stopped(
+			&main_thread->main_thread_mutex,
+			&main_thread->is_dead,
+			&main_thread->is_error,
+			&main_thread->everyone_is_eaten
+		)
+	);
 }

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 16:33:28 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:39:29 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_philo_thread {
 	int				philo_id;
 	t_philosopher	philo;
 	pthread_mutex_t	philo_thread_mutex;
+	pthread_mutex_t	*main_forks;
+	time_t			*main_process_start_time;
+	bool			*main_is_dead;
+	bool			*main_is_error;
+	int				*main_everyone_is_eaten;
+	int				*main_args_time_to_eat;
+	int				*main_args_time_to_sleep;
 }	t_philo_thread;
 
 typedef struct s_args_info {
@@ -46,7 +53,6 @@ typedef struct s_args_info {
  * 哲学者全員の構造体
  */
 typedef struct s_main_thread {
-	t_philo_thread	*philo_thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	main_thread_mutex;
 	pthread_mutex_t	print_mutex;

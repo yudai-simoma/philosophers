@@ -6,36 +6,37 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 15:08:22 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 16:06:04 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:51:44 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "action.h"
 
+#include <stdio.h>
 void	*create_philo_thread(void *tmp)
 {
-	t_main_thread	*main_thread;
+	t_philo_thread	*philo_thread;
 
-	main_thread = tmp;
+	philo_thread = tmp;
+	printf("philo_id = %d\n", philo_thread->philo_id);
 	while (true)
 	{
-		if (main_thread->philo_thread->philo_id % 2 == 0)
-			has_forks_even_philosopher(main_thread, main_thread->philo_thread);
+		if (philo_thread->philo_id % 2 == 0)
+			has_forks_even_philosopher(philo_thread);
 		else
-			has_forks_odd_philosopher(main_thread, main_thread->philo_thread);
-		if (main_thread->is_error)
+			has_forks_odd_philosopher(philo_thread);
+		if (philo_thread->main_is_error)
 			break ;
 		start_eating(
-			&main_thread->forks[main_thread->philo_thread->philo.left_fork],
-			&main_thread->forks[main_thread->philo_thread->philo.right_fork],
-			main_thread,
-			main_thread->philo_thread);
-		if (main_thread->is_error)
+			&philo_thread->main_forks[philo_thread->philo.left_fork],
+			&philo_thread->main_forks[philo_thread->philo.right_fork],
+			philo_thread);
+		if (philo_thread->main_is_error)
 			break ;
-		start_sleeping(main_thread, main_thread->philo_thread);
-		if (main_thread->is_error
-			|| is_program_stopped(main_thread, &main_thread->main_thread_mutex))
+		start_sleeping(philo_thread);
+		if (philo_thread->main_is_error
+			|| is_program_stopped_philo(philo_thread))
 			break ;
 	}
 	return (NULL);

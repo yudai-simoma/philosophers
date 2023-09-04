@@ -16,12 +16,10 @@
 /**
  * 偶数の哲学者がフォークを持つ
 */
-void	has_forks_even_philosopher(
-	t_main_thread *main_thread,
-	t_philo_thread *philo_thread)
+void	has_forks_even_philosopher(t_philo_thread *philo_thread)
 {
-	has_fork(&main_thread->forks[philo_thread->philo.left_fork],
-		main_thread, philo_thread);
-	has_fork(&main_thread->forks[philo_thread->philo.right_fork],
-		main_thread, philo_thread);
+	has_fork(&philo_thread->main_forks[philo_thread->philo.left_fork],
+		philo_thread);
+	has_fork(&philo_thread->main_forks[philo_thread->philo.right_fork],
+		philo_thread);
 }
