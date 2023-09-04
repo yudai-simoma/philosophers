@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/03 14:21:41 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/04 16:08:01 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,25 @@ INCLUDE		=	-Iinclude -Ilibft
 # )
 SRCS	=	\
 			main.c \
+			${SRC_DIR}/action/has_fork.c \
+			${SRC_DIR}/action/has_forks_even_philosopher.c \
+			${SRC_DIR}/action/has_forks_odd_philosopher.c \
+			${SRC_DIR}/action/is_program_stopped.c \
+			${SRC_DIR}/action/print_message.c \
+			${SRC_DIR}/action/start_eating.c \
+			${SRC_DIR}/action/start_sleeping.c \
 			${SRC_DIR}/error/is_error.c \
 			${SRC_DIR}/init/main_thread_init.c \
-			${SRC_DIR}/thread/thread.c \
+			${SRC_DIR}/init/philo_thread_init.c \
+			${SRC_DIR}/thread/create_philo_thread.c \
+			${SRC_DIR}/thread/create_thread.c \
+			${SRC_DIR}/time_utils/get_time_diff.c \
+			${SRC_DIR}/time_utils/set_current_time.c \
 			${SRC_DIR}/utils/ft_putendl.c \
 			${SRC_DIR}/utils/ft_putstr.c \
 			${SRC_DIR}/utils/ft_putstr_error.c \
-			${SRC_DIR}/utils/set_current_time.c \
+			${SRC_DIR}/x_wrapper/ft_xpthread_mutex_lock.c \
+			${SRC_DIR}/x_wrapper/ft_xpthread_mutex_unlock.c \
 			${LIBFT_DIR}/ft_atoi.c \
 			${LIBFT_DIR}/ft_isdigit.c \
 			${LIBFT_DIR}/ft_strlen.c \

@@ -6,13 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:55:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:21:09 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 #include "types.h"
-#include "set_current_time.h"
+#include "time_utils.h"
 
 static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
 {
@@ -31,6 +32,9 @@ static int	_set_forks_mutex(pthread_mutex_t *forks, int number_of_philosophers)
 	int	i;
 
 	i = 0;
+	forks = malloc(sizeof(pthread_mutex_t) * number_of_philosophers);
+	if (forks == NULL)
+		return (EXIT_FAILURE);
 	while (i < number_of_philosophers)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
@@ -40,7 +44,6 @@ static int	_set_forks_mutex(pthread_mutex_t *forks, int number_of_philosophers)
 	return (EXIT_SUCCESS);
 }
 
-
 /**
  * t_main_threadに値を初期設定する関数
  */
@@ -48,15 +51,15 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 {
 	_args_info_init(argc, argv, &main_thread->args_info);
 	if (_set_forks_mutex(main_thread->forks,
-			main_thread->args_info.number_of_philosophers) != EXIT_FAILURE
-		pthread_mutex_init(&main_thread->main_thread_mutex, NULL) != 0
+			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE
+		|| pthread_mutex_init(&main_thread->main_thread_mutex, NULL) != 0
 		|| pthread_mutex_init(&main_thread->print_mutex, NULL) != 0)
 	{
 		return (EXIT_FAILURE);
 	}
-	main_thread->process_start_time
-		= set_current_time(&main_thread->main_thread_mutex, is_error);
-	if (*is_error)
+	set_current_time(&main_thread->process_start_time,
+		&main_thread->main_thread_mutex, &main_thread->is_error);
+	if (main_thread->is_error)
 		return (-1);
 	main_thread->is_dead = false;
 	main_thread->everyone_is_eaten

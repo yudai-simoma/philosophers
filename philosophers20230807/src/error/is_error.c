@@ -6,14 +6,15 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:16:48 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:02:47 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:12:11 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "ft_putstr_error.h"
+#include "config.h"
+#include "utils.h"
 
 /**
  * エラーの場合:true, エラー出ない場合:false
@@ -42,6 +43,6 @@ bool	is_error(int argc, char **argv)
 		i++;
 	}
 	if (is_error)
-		ft_putstr_error(ARGS_ERR_MSG, is_error);
+		ft_putstr_error(ARGS_ERR_MSG, &is_error);
 	return (is_error);
 }

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:09:52 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:51:38 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:41:04 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	_philosopher_init(
 		philo.right_fork = number_of_philosophers - RIGHT_FORK_DIFF;
 	else
 		philo.right_fork = philo_id - RIGHT_FORK_DIFF;
-	philo.eat_start_time = 0;
+	philo.eat_start_time = START_TIME;
 	if (pthread_mutex_init(&philo.eat_start_time_mutex, NULL) != 0)
 	{
 		return (EXIT_FAILURE);
@@ -36,22 +36,25 @@ static int	_philosopher_init(
 }
 
 int	philo_thread_init(
-	t_philo_thread *philo_thread,
-	const int number_of_philosophers)
+	t_philo_thread **philo_thread,
+	const int number_of_philosophers,
+	const int number_of_times_each_philosopher_must_eat)
 {
 	int	i;
 
-	philo_thread = (t_philo_thread *)malloc(sizeof(t_philo_thread)
+	*philo_thread = (t_philo_thread *)malloc(sizeof(t_philo_thread)
 			* number_of_philosophers);
-	if (philo_thread == NULL)
+	if (*philo_thread == NULL)
 		return (EXIT_FAILURE);
 	i = 0;
 	while (i < number_of_philosophers)
 	{
-		philo_thread->philo_id = i;
+		(*philo_thread)[i].philo_id = i;
 		if (_philosopher_init(
-				philo_thread->philo, i, number_of_philosophers) != EXIT_FAILURE
-			|| pthread_mutex_init(&philo_thread->philo_thread_mutex, NULL) != 0)
+				(*philo_thread)[i].philo, i, number_of_philosophers,
+			number_of_times_each_philosopher_must_eat) == EXIT_FAILURE
+			|| pthread_mutex_init(
+				&(*philo_thread)[i].philo_thread_mutex, NULL) != 0)
 		{
 			return (EXIT_FAILURE);
 		}

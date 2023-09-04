@@ -6,14 +6,16 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:30:50 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:07:22 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include "types.h"
+#include "time_utils.h"
 
 /*
  * スタートからの経過時間を設定する
@@ -49,7 +51,7 @@ void	print_message(
 	time_t	elapsed_time;
 
 	if (_set_elapsed_time(&elapsed_time, main_thread->process_start_time,
-			mutex, main_thread->is_error) != EXIT_FAILURE)
+			mutex, &main_thread->is_error) != EXIT_FAILURE)
 	{
 		main_thread->is_error = true;
 		return ;

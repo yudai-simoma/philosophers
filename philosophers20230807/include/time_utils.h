@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_thread.h                                    :+:      :+:    :+:   */
+/*   time_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 13:58:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 14:17:49 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/09/04 14:41:52 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/09/04 15:03:20 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CREATE_THREAD_H
-# define CREATE_THREAD_H
+#ifndef TIME_UTILS_H
+# define TIME_UTILS_H
 
 # include <stdbool.h>
-# include "types.h"
+# include <pthread.h>
+# include <sys/time.h>
 
-bool	create_thread(t_main_thread *main_thread, bool *is_error);
+int		get_time_diff(
+			const time_t start_time,
+			const time_t end_time,
+			pthread_mutex_t *mutex,
+			bool *is_error);
+
+void	set_current_time(
+			time_t *set_time,
+			pthread_mutex_t *mutex,
+			bool *is_error);
 
 #endif

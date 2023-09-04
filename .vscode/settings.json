@@ -4,6 +4,7 @@
 		"philo.h": "c",
 		"libft.h": "c",
 		"stdbool.h": "c",
-		"pthread.h": "c"
+		"pthread.h": "c",
+		"config.h": "c"
 	}
 }

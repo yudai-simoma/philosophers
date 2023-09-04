@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_thread.c                                     :+:      :+:    :+:   */
+/*   create_philo_thread.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 15:08:22 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 21:34:02 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:06:04 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+#include "action.h"
 
-void	philo_thread(void *tmp)
+void	*create_philo_thread(void *tmp)
 {
 	t_main_thread	*main_thread;
 
@@ -26,14 +27,16 @@ void	philo_thread(void *tmp)
 		if (main_thread->is_error)
 			break ;
 		start_eating(
-			main_thread->forks[main_thread->philo_thread->philo.left_fork],
-			main_thread->forks[main_thread->philo_thread->philo.right_fork],
+			&main_thread->forks[main_thread->philo_thread->philo.left_fork],
+			&main_thread->forks[main_thread->philo_thread->philo.right_fork],
 			main_thread,
 			main_thread->philo_thread);
 		if (main_thread->is_error)
 			break ;
 		start_sleeping(main_thread, main_thread->philo_thread);
-		if (main_thread->is_error || is_program_stopped())
+		if (main_thread->is_error
+			|| is_program_stopped(main_thread, &main_thread->main_thread_mutex))
 			break ;
 	}
+	return (NULL);
 }

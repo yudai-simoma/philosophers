@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <types.h>
+#include "types.h"
+#include "action.h"
 
 /**
  * 偶数の哲学者がフォークを持つ
@@ -19,8 +20,8 @@ void	has_forks_even_philosopher(
 	t_main_thread *main_thread,
 	t_philo_thread *philo_thread)
 {
-	has_fork(main_thread->forks[philo_thread->philo.left_fork],
+	has_fork(&main_thread->forks[philo_thread->philo.left_fork],
 		main_thread, philo_thread);
-	has_fork(main_thread->forks[philo_thread->philo.right_fork],
+	has_fork(&main_thread->forks[philo_thread->philo.right_fork],
 		main_thread, philo_thread);
 }

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/03 17:08:36 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:33:28 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
  * 哲学者一人の構造体
  */
 typedef struct s_philosopher {
-	int				right_fork;
 	int				left_fork;
+	int				right_fork;
 	time_t			eat_start_time;
 	pthread_mutex_t	eat_start_time_mutex;
 	int				eat_count;
