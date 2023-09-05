@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 20:25:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:33:39 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_message(t_print print)
 	if (_set_elapsed_time(&elapsed_time,
 			print.process_start_time,
 			print.mutex,
-			print.is_error) != EXIT_FAILURE)
+			print.is_error) == EXIT_FAILURE)
 	{
 		*print.is_error = true;
 		return ;

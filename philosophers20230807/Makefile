@@ -6,15 +6,16 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/04 20:24:14 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/05 20:23:23 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	philo
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+# CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj

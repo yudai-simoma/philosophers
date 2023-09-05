@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:41:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 20:25:56 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:54:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	is_program_stopped(
 			pthread_mutex_t *mutex,
 			bool *is_dead,
 			bool *is_error,
-			int *everyone_is_eaten);
+			int everyone_is_eaten);
 
 void	print_message_main(
 			t_main_thread *main_thread,

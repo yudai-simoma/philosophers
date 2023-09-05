@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:58:03 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 20:32:31 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:20:17 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,20 @@ static void	_wait_for_thread(
 }
 
 static void	_set_philo_thread_date(
-	t_philo_thread philo_thread,
+	t_philo_thread *philo_thread,
 	t_main_thread *main_thread)
 {
-	philo_thread.main_forks = main_thread->forks;
-	philo_thread.main_process_start_time = &main_thread->process_start_time;
-	philo_thread.main_is_dead = &main_thread->is_dead;
-	philo_thread.main_is_error = &main_thread->is_error;
-	philo_thread.main_everyone_is_eaten = &main_thread->everyone_is_eaten;
-	philo_thread.main_args_time_to_eat = &main_thread->args_info.time_to_eat;
-	philo_thread.main_args_time_to_sleep
+	philo_thread->main_forks = main_thread->forks;
+	philo_thread->main_process_start_time = &main_thread->process_start_time;
+	philo_thread->main_is_dead = &main_thread->is_dead;
+	philo_thread->main_is_error = &main_thread->is_error;
+	philo_thread->main_everyone_is_eaten = &main_thread->everyone_is_eaten;
+	philo_thread->main_args_time_to_eat = &main_thread->args_info.time_to_eat;
+	philo_thread->main_args_time_to_sleep
 		= &main_thread->args_info.time_to_sleep;
-	set_current_time(&(philo_thread.philo.eat_start_time),
-		&(philo_thread.philo.eat_start_time_mutex),
+	philo_thread->print_mutex = &main_thread->print_mutex;
+	set_current_time(&(philo_thread->philo.eat_start_time),
+		&(philo_thread->philo.eat_start_time_mutex),
 		&main_thread->is_error);
 }
 
@@ -115,7 +116,7 @@ int	create_thread(
 	i = 0;
 	while (i < main_thread->args_info.number_of_philosophers)
 	{
-		_set_philo_thread_date(philo_thread[i], main_thread);
+		_set_philo_thread_date(&philo_thread[i], main_thread);
 		if (main_thread->is_error
 			|| pthread_create(
 				&threads[i], NULL, create_philo_thread, &philo_thread[i]) != 0)

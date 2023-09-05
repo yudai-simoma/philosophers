@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 19:39:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:13:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo_thread {
 	int				*main_everyone_is_eaten;
 	int				*main_args_time_to_eat;
 	int				*main_args_time_to_sleep;
+	pthread_mutex_t	*print_mutex;
 }	t_philo_thread;
 
 typedef struct s_args_info {

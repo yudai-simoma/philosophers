@@ -19,7 +19,7 @@
 */
 void	has_forks_odd_philosopher(t_philo_thread *philo_thread)
 {
-	usleep(10);
+	usleep(1);
 	has_fork(&philo_thread->main_forks[philo_thread->philo.right_fork],
 		philo_thread);
 	has_fork(&philo_thread->main_forks[philo_thread->philo.left_fork],

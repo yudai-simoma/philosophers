@@ -6,13 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 16:21:09 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:17:14 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 #include "types.h"
+#include "config.h"
 #include "time_utils.h"
 
 static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
@@ -24,20 +25,22 @@ static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
 	if (argc == 6)
 		args_info->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
-		args_info->number_of_times_each_philosopher_must_eat = 0;
+		args_info->number_of_times_each_philosopher_must_eat = NO_NUMBER;
 }
 
-static int	_set_forks_mutex(pthread_mutex_t *forks, int number_of_philosophers)
+static int	_set_forks_mutex(
+	pthread_mutex_t **forks,
+	const int number_of_philosophers)
 {
 	int	i;
 
 	i = 0;
-	forks = malloc(sizeof(pthread_mutex_t) * number_of_philosophers);
-	if (forks == NULL)
+	*forks = malloc(sizeof(pthread_mutex_t) * number_of_philosophers);
+	if (*forks == NULL)
 		return (EXIT_FAILURE);
 	while (i < number_of_philosophers)
 	{
-		if (pthread_mutex_init(&forks[i], NULL) != 0)
+		if (pthread_mutex_init(&((*forks)[i]), NULL) != 0)
 			return (EXIT_FAILURE);
 		i++;
 	}
@@ -50,7 +53,7 @@ static int	_set_forks_mutex(pthread_mutex_t *forks, int number_of_philosophers)
 int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 {
 	_args_info_init(argc, argv, &main_thread->args_info);
-	if (_set_forks_mutex(main_thread->forks,
+	if (_set_forks_mutex(&main_thread->forks,
 			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE
 		|| pthread_mutex_init(&main_thread->main_thread_mutex, NULL) != 0
 		|| pthread_mutex_init(&main_thread->print_mutex, NULL) != 0)

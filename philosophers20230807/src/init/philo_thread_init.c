@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:09:52 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 17:37:09 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:30:05 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	_philosopher_init(
 	philo->eat_count = number_of_times_each_philosopher_must_eat;
 	return (EXIT_SUCCESS);
 }
-#include <stdio.h>
+
 int	philo_thread_init(
 	t_philo_thread **philo_thread,
 	const int number_of_philosophers,
