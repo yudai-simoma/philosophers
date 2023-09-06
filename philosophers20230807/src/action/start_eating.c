@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:33:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 20:22:08 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/06 22:34:52 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 /*
  * 食べる
  */
+//TODO:コンパイルできるようにする。philo_thread_mutex, main_thread_mutexを削除したので調整が必要
 void	start_eating(
 	pthread_mutex_t *left_fork,
 	pthread_mutex_t *right_fork,
@@ -31,8 +32,7 @@ void	start_eating(
 	{
 		print_message_philo(philo_thread, MSG_EAT);
 		set_current_time(&philo_thread->philo.eat_start_time,
-			&philo_thread->philo.eat_start_time_mutex,
-			philo_thread->main_is_error);
+			philo_thread->time_mutex, philo_thread->main_is_error);
 		philo_thread->philo.eat_count--;
 		if (philo_thread->philo.eat_count == 0)
 		{
@@ -44,10 +44,9 @@ void	start_eating(
 		}
 		while (true)
 		{
-			set_current_time(&elapsed_time, &philo_thread->philo_thread_mutex,
-				philo_thread->main_is_error);
+			set_current_time(&elapsed_time, philo_thread->main_is_error);
 			if (get_time_diff(philo_thread->philo.eat_start_time, elapsed_time,
-					&philo_thread->philo_thread_mutex,
+					&philo_thread->time_mutex,
 					philo_thread->main_is_error)
 				>= *philo_thread->main_args_time_to_eat)
 			{

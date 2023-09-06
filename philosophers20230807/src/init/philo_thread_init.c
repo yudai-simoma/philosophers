@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:09:52 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 12:30:05 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:38:59 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ static int	_philosopher_init(
 	else
 		philo->right_fork = philo_id - RIGHT_FORK_DIFF;
 	philo->eat_start_time = START_TIME;
-	if (pthread_mutex_init(&philo->eat_start_time_mutex, NULL) != 0)
-	{
-		return (EXIT_FAILURE);
-	}
 	philo->eat_count = number_of_times_each_philosopher_must_eat;
 	return (EXIT_SUCCESS);
 }
@@ -52,9 +48,7 @@ int	philo_thread_init(
 		(*philo_thread)[i].philo_id = i;
 		if (_philosopher_init(
 				&(*philo_thread)[i].philo, i, number_of_philosophers,
-			number_of_times_each_philosopher_must_eat) == EXIT_FAILURE
-			|| pthread_mutex_init(
-				&(*philo_thread)[i].philo_thread_mutex, NULL) != 0)
+			number_of_times_each_philosopher_must_eat) == EXIT_FAILURE)
 		{
 			return (EXIT_FAILURE);
 		}

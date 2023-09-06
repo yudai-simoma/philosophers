@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 20:13:49 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:49:22 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ typedef struct s_philosopher {
 	int				left_fork;
 	int				right_fork;
 	time_t			eat_start_time;
-	pthread_mutex_t	eat_start_time_mutex;
 	int				eat_count;
 }	t_philosopher;
 
 typedef struct s_philo_thread {
 	int				philo_id;
 	t_philosopher	philo;
-	pthread_mutex_t	philo_thread_mutex;
 	pthread_mutex_t	*main_forks;
 	time_t			*main_process_start_time;
 	bool			*main_is_dead;
@@ -39,7 +37,8 @@ typedef struct s_philo_thread {
 	int				*main_everyone_is_eaten;
 	int				*main_args_time_to_eat;
 	int				*main_args_time_to_sleep;
-	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*main_stopped_mutex;
+	pthread_mutex_t	*time_mutex;
 }	t_philo_thread;
 
 typedef struct s_args_info {
@@ -55,10 +54,9 @@ typedef struct s_args_info {
  */
 typedef struct s_main_thread {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	main_thread_mutex;
-	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	stopped_mutex;
+	pthread_mutex_t	time_mutex;
 	t_args_info		args_info;
-	// pthread_mutex_t	stopped_mutex;
 	time_t			process_start_time;
 	bool			is_dead;
 	bool			is_error;

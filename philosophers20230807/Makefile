@@ -6,16 +6,16 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/05 20:23:23 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/06 19:57:02 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	philo
 
 CC			=	cc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
@@ -77,6 +77,10 @@ fclean	:	clean
 	${RM} ${NAME}
 
 re		:	fclean all
+
+# Test rule
+test: CFLAGS += -fsanitize=thread
+test: re
 
 -include ${DEPS}
 

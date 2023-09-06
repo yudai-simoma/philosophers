@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:58:03 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 20:20:17 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:47:55 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,65 @@
 #include "config.h"
 #include "action.h"
 #include "thread.h"
+#include "x_wrapper.h"
 
 /*
  * 死亡判定
  */
+#include <stdio.h>
 static void	_check_philo_dead(
 	t_main_thread *main_thread,
 	t_philo_thread *philo_thread)
 {
 	time_t			elapsed_time;
 
+	// printf("main_thread P=%p, philo_thread P=%p, main_thread->args_info.time_to_die P=%p, main_thread->forks P=%p\n", &main_thread->main_thread_mutex, philo_thread, &main_thread->args_info.time_to_die, main_thread->forks);
+	// printf("elapsed_time P=%p, &philo_thread P=%p, &main_thread->is_dead P=%p\n", &elapsed_time, &philo_thread, &main_thread->is_dead);
+	
+	printf("%p\n", main_thread);
+	printf("%p\n", main_thread->forks);
+	printf("%p\n", &main_thread->stopped_mutex);
+	printf("  %p\n", &main_thread->args_info);
+	printf("  %p\n", &main_thread->args_info.number_of_philosophers);
+	printf("  %p\n", &main_thread->args_info.time_to_die);
+	printf("  %p\n", &main_thread->args_info.time_to_eat);
+	printf("  %p\n", &main_thread->args_info.time_to_sleep);
+	printf("  %p\n", &main_thread->args_info.number_of_times_each_philosopher_must_eat);
+	printf("%p\n", &main_thread->process_start_time);
+	printf("%p\n", &main_thread->is_dead);
+	printf("%p\n", &main_thread->is_error);
+	printf("%p\n", &main_thread->everyone_is_eaten);
+	printf("\n%p\n", philo_thread);
+	printf("%p\n", &philo_thread->philo_id);
+	printf("  %p\n", &philo_thread->philo);
+	printf("  %p\n", &philo_thread->philo.left_fork);
+	printf("  %p\n", &philo_thread->philo.right_fork);
+	printf("  %p\n", &philo_thread->philo.eat_start_time);
+	printf("  %p\n", &philo_thread->philo.eat_count);
+	printf("%p\n", philo_thread->main_forks);
+	printf("%p\n", philo_thread->main_process_start_time);
+	printf("%p\n", philo_thread->main_is_dead);
+	printf("%p\n", philo_thread->main_is_error);
+	printf("%p\n", philo_thread->main_everyone_is_eaten);
+	printf("%p\n", philo_thread->main_args_time_to_eat);
+	printf("%p\n", philo_thread->main_args_time_to_sleep);
+	printf("%p\n", philo_thread->main_stopped_mutex);
 	if (!is_program_stopped_main(main_thread))
 	{
-		set_current_time(&elapsed_time,
-			&main_thread->main_thread_mutex, &main_thread->is_error);
+		set_current_time(&elapsed_time, &main_thread->is_error);
 		if (get_time_diff(
 				philo_thread->philo.eat_start_time,
 				elapsed_time,
-				&philo_thread->philo_thread_mutex,
+				&philo_thread->time_mutex,
 				&main_thread->is_error)
 			> main_thread->args_info.time_to_die)
 		{
+			ft_xpthread_mutex_lock(
+				&main_thread->stopped_mutex, &main_thread->is_error);
 			main_thread->is_dead = true;
 			print_message_main(main_thread, philo_thread->philo_id, MSG_DIE);
+			ft_xpthread_mutex_unlock(
+				&main_thread->stopped_mutex, &main_thread->is_error);
 			return ;
 		}
 	}
@@ -54,11 +90,15 @@ static void	_check_all_philosophers_dead(
 	i = 0;
 	while (i < main_thread->args_info.number_of_philosophers)
 	{
-		_check_philo_dead(main_thread, &(philo_thread[i]));
+		if (!main_thread->is_error)
+			_check_philo_dead(main_thread, &(philo_thread[i]));
+		else
+			break ;
 		i++;
 	}
 }
 
+//TODO:関数を分ける
 static void	_wait_for_thread(
 	pthread_t *threads,
 	t_main_thread *main_thread,
@@ -69,7 +109,7 @@ static void	_wait_for_thread(
 	while (true)
 	{
 		_check_all_philosophers_dead(main_thread, philo_thread);
-		if (is_program_stopped_main(main_thread))
+		if (is_program_stopped_main(main_thread) || main_thread->is_error)
 			break ;
 	}
 	i = 0;
@@ -93,10 +133,10 @@ static void	_set_philo_thread_date(
 	philo_thread->main_args_time_to_eat = &main_thread->args_info.time_to_eat;
 	philo_thread->main_args_time_to_sleep
 		= &main_thread->args_info.time_to_sleep;
-	philo_thread->print_mutex = &main_thread->print_mutex;
+	philo_thread->main_stopped_mutex = &main_thread->stopped_mutex;
+	philo_thread->time_mutex = &main_thread->time_mutex;
 	set_current_time(&(philo_thread->philo.eat_start_time),
-		&(philo_thread->philo.eat_start_time_mutex),
-		&main_thread->is_error);
+		&main_thread->time_mutex, &main_thread->is_error);
 }
 
 /**

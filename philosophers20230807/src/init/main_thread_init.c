@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 13:17:14 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:47:34 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 	_args_info_init(argc, argv, &main_thread->args_info);
 	if (_set_forks_mutex(&main_thread->forks,
 			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE
-		|| pthread_mutex_init(&main_thread->main_thread_mutex, NULL) != 0
-		|| pthread_mutex_init(&main_thread->print_mutex, NULL) != 0)
+		|| pthread_mutex_init(&main_thread->stopped_mutex, NULL) != 0
+		|| pthread_mutex_init(&main_thread->time_mutex, NULL) != 0)
 	{
 		return (EXIT_FAILURE);
 	}
-	set_current_time(&main_thread->process_start_time,
-		&main_thread->main_thread_mutex, &main_thread->is_error);
+	set_current_time(&main_thread->process_start_time, &main_thread->is_error);
 	if (main_thread->is_error)
 		return (-1);
 	main_thread->is_dead = false;
