@@ -6,12 +6,13 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:16:48 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 15:12:11 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:24:58 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdatomic.h>
 #include "libft.h"
 #include "config.h"
 #include "utils.h"
@@ -21,9 +22,9 @@
  */
 bool	is_error(int argc, char **argv)
 {
-	int		i;
-	size_t	j;
-	bool	is_error;
+	int			i;
+	size_t		j;
+	atomic_bool	is_error;
 
 	is_error = false;
 	if (argc != 5 && argc != 6)

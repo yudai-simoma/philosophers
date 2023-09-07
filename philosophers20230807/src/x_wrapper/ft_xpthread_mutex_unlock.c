@@ -6,14 +6,15 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:39:24 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 20:22:27 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:22:03 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdatomic.h>
 
-int	ft_xpthread_mutex_unlock(pthread_mutex_t *mutex, bool *is_error)
+int	ft_xpthread_mutex_unlock(pthread_mutex_t *mutex, atomic_bool *is_error)
 {
 	int	ret;
 

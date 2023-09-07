@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:41:25 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/04 20:54:49 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:31:38 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define ACTION_H
 
 # include <pthread.h>
+# include <stdatomic.h>
+# include <stdatomic.h>
 # include "types.h"
 
 typedef struct s_print {
 	pthread_mutex_t	*mutex;
-	time_t			process_start_time;
-	bool			*is_error;
+	atomic_long		process_start_time;
+	atomic_bool		*is_error;
 	int				philo_id;
 	char			*message;
 }	t_print;
@@ -38,9 +40,9 @@ bool	is_program_stopped_philo(t_philo_thread *philo_thread);
 
 bool	is_program_stopped(
 			pthread_mutex_t *mutex,
-			bool *is_dead,
-			bool *is_error,
-			int everyone_is_eaten);
+			atomic_bool *is_dead,
+			atomic_bool *is_error,
+			atomic_int everyone_is_eaten);
 
 void	print_message_main(
 			t_main_thread *main_thread,

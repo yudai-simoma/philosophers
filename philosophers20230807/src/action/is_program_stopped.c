@@ -6,12 +6,13 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:56:29 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/06 20:06:55 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:19:42 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <pthread.h>
+#include <stdatomic.h>
 #include "config.h"
 #include "x_wrapper.h"
 
@@ -22,8 +23,8 @@
 //TODO:is_deadで競合しているため修正が必要
 bool	is_program_stopped(
 	pthread_mutex_t *mutex,
-	bool *is_dead,
-	bool *is_error,
+	atomic_bool *is_dead,
+	atomic_bool *is_error,
 	int everyone_is_eaten)
 {
 	bool	is_stopped;

@@ -6,11 +6,12 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/06 20:47:34 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:16:16 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdatomic.h>
 #include "libft.h"
 #include "types.h"
 #include "config.h"
@@ -56,13 +57,15 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 	if (_set_forks_mutex(&main_thread->forks,
 			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE
 		|| pthread_mutex_init(&main_thread->stopped_mutex, NULL) != 0
-		|| pthread_mutex_init(&main_thread->time_mutex, NULL) != 0)
+		|| pthread_mutex_init(&main_thread->time_mutex, NULL) != 0
+		|| pthread_mutex_init(&main_thread->eat_mutex, NULL) != 0)
 	{
 		return (EXIT_FAILURE);
 	}
-	set_current_time(&main_thread->process_start_time, &main_thread->is_error);
+	set_current_time(&main_thread->process_start_time,
+		&main_thread->time_mutex, &main_thread->is_error);
 	if (main_thread->is_error)
-		return (-1);
+		return (EXIT_FAILURE);
 	main_thread->is_dead = false;
 	main_thread->everyone_is_eaten
 		= main_thread->args_info.number_of_times_each_philosopher_must_eat;

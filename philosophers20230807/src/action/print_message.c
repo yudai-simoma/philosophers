@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/06 20:44:51 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:33:54 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdatomic.h>
 #include "types.h"
 #include "time_utils.h"
 #include "action.h"
@@ -25,9 +26,9 @@ static int	_set_elapsed_time(
 	time_t *elapsed_time,
 	time_t start_time,
 	pthread_mutex_t *mutex,
-	bool *is_error)
+	atomic_bool *is_error)
 {
-	time_t	current_time;
+	atomic_long	current_time;
 
 	set_current_time(&current_time, mutex, is_error);
 	if (*is_error)

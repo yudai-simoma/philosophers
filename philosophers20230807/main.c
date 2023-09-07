@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:30 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 20:15:33 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:58:56 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ static void	_free_main_thread(
 	t_main_thread *main_thread,
 	t_philo_thread *philo_thread)
 {
+	int	i;
+
+	i = 0;
+	while (i < main_thread->args_info.number_of_philosophers)
+	{
+		pthread_mutex_destroy(&main_thread->forks[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&main_thread->stopped_mutex);
+	pthread_mutex_destroy(&main_thread->time_mutex);
+	pthread_mutex_destroy(&main_thread->eat_mutex);
 	free(main_thread->forks);
 	free(philo_thread);
 }

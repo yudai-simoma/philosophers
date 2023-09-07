@@ -6,13 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:12:05 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 18:16:48 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:21:06 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <time.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdatomic.h>
 #include "x_wrapper.h"
 
 /*
@@ -22,7 +23,7 @@ int	get_time_diff(
 	const time_t start_time,
 	const time_t end_time,
 	pthread_mutex_t *mutex,
-	bool *is_error)
+	atomic_bool *is_error)
 {
 	int	diff_time;
 
