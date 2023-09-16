@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:30 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/07 19:58:56 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:50:10 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "init.h"
 #include "utils.h"
 #include "thread.h"
+#include "config.h"
 
 static void	_free_main_thread(
 	t_main_thread *main_thread,
@@ -29,18 +30,12 @@ static void	_free_main_thread(
 		pthread_mutex_destroy(&main_thread->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&main_thread->stopped_mutex);
-	pthread_mutex_destroy(&main_thread->time_mutex);
-	pthread_mutex_destroy(&main_thread->eat_mutex);
 	free(main_thread->forks);
 	free(philo_thread);
 }
 
-#include <stdio.h>
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	int		argc = 5;
-	char		*argv[] = {"./philosophers", "4", "410", "200", "200"};
 	t_main_thread	main_thread;
 	t_philo_thread	*philo_thread;
 
@@ -55,7 +50,7 @@ int	main(void)
 		|| create_thread(&main_thread, philo_thread) == EXIT_FAILURE)
 	{
 		_free_main_thread(&main_thread, philo_thread);
-		ft_putstr_error("Error", &main_thread.is_error);
+		ft_putstr_error(SYSTEM_ERR_MSG, &main_thread.is_error);
 		return (EXIT_FAILURE);
 	}
 	_free_main_thread(&main_thread, philo_thread);

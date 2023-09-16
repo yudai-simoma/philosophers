@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:59:57 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/05 13:01:22 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:47:30 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # define MSG_SLEEP			("is sleeping")
 # define MSG_THINK			("is thinking")
 # define MSG_DIE			("died")
+# define SYSTEM_ERR_MSG		("Error")
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/07 22:33:54 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:30:51 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,14 @@
 static int	_set_elapsed_time(
 	time_t *elapsed_time,
 	time_t start_time,
-	pthread_mutex_t *mutex,
 	atomic_bool *is_error)
 {
 	atomic_long	current_time;
 
-	set_current_time(&current_time, mutex, is_error);
+	set_current_time(&current_time, is_error);
 	if (*is_error)
 		return (EXIT_FAILURE);
-	if (pthread_mutex_lock(mutex) != 0)
-		return (EXIT_FAILURE);
 	*elapsed_time = current_time - start_time;
-	if (pthread_mutex_unlock(mutex) != 0)
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -50,7 +45,6 @@ void	print_message(t_print print)
 
 	if (_set_elapsed_time(&elapsed_time,
 			print.process_start_time,
-			print.mutex,
 			print.is_error) == EXIT_FAILURE)
 	{
 		*print.is_error = true;

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:08:01 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/06 20:47:25 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:43:57 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	print_message_main(
 {
 	t_print	print;
 
-	print.mutex = &main_thread->time_mutex;
 	print.process_start_time = main_thread->process_start_time;
 	print.is_error = &main_thread->is_error;
 	print.philo_id = philo_id;

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/07 22:35:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:56:23 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ typedef struct s_philo_thread {
 	atomic_int		*main_everyone_is_eaten;
 	atomic_int		*main_args_time_to_eat;
 	atomic_int		*main_args_time_to_sleep;
-	pthread_mutex_t	*main_stopped_mutex;
-	pthread_mutex_t	*main_time_mutex;
-	pthread_mutex_t	*main_eat_mutex;
 }	t_philo_thread;
 
 typedef struct s_args_info {
@@ -56,9 +53,6 @@ typedef struct s_args_info {
  */
 typedef struct s_main_thread {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	stopped_mutex;
-	pthread_mutex_t	time_mutex;
-	pthread_mutex_t	eat_mutex;
 	t_args_info		args_info;
 	atomic_long		process_start_time;
 	atomic_bool		is_dead;
