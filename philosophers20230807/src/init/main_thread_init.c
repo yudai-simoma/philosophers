@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 13:49:35 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:13:32 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 	}
 	main_thread->is_dead = false;
 	main_thread->everyone_is_eaten
-		= main_thread->args_info.number_of_times_each_philosopher_must_eat;
+		= main_thread->args_info.number_of_philosophers;
 	return (EXIT_SUCCESS);
 }

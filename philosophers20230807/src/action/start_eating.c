@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:33:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:04:52 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:14:42 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	start_eating(
 			&philo_thread->philo.eat_start_time, philo_thread->main_is_error);
 		philo_thread->philo.eat_count--;
 		if (philo_thread->philo.eat_count == 0)
+		{
 			(*philo_thread->main_everyone_is_eaten)--;
+		}
 		_wait_eating(left_fork, right_fork, philo_thread);
 		return ;
 	}
