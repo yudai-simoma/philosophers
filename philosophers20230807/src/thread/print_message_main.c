@@ -6,11 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:08:01 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 22:22:41 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:06:29 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "action.h"
+#include "thread.h"
 #include "x_wrapper.h"
 
 void	print_message_main(

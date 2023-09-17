@@ -6,14 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:36:42 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 22:22:01 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:04:33 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include "types.h"
 #include "config.h"
-#include "action.h"
+#include "thread.h"
 #include "x_wrapper.h"
 
 /*

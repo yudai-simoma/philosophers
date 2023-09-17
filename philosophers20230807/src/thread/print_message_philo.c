@@ -6,11 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:08:08 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 22:26:34 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:06:38 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "action.h"
+#include "thread.h"
 #include "x_wrapper.h"
 
 void	print_message_philo(t_philo_thread *philo_thread, char *message)

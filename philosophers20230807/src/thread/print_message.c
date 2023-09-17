@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 17:30:51 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:06:16 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdatomic.h>
 #include "types.h"
 #include "time_utils.h"
-#include "action.h"
+#include "thread.h"
 
 /*
  * スタートからの経過時間を設定する

@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/17 12:59:17 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/17 14:04:09 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,6 @@ SRCS	=	\
 			${SRC_DIR}/action/has_fork.c \
 			${SRC_DIR}/action/has_forks_even_philosopher.c \
 			${SRC_DIR}/action/has_forks_odd_philosopher.c \
-			${SRC_DIR}/action/is_program_stopped.c \
-			${SRC_DIR}/action/is_program_stopped_main.c \
-			${SRC_DIR}/action/is_program_stopped_philo.c \
-			${SRC_DIR}/action/print_message.c \
-			${SRC_DIR}/action/print_message_main.c \
-			${SRC_DIR}/action/print_message_philo.c \
 			${SRC_DIR}/action/start_eating.c \
 			${SRC_DIR}/action/start_sleeping.c \
 			${SRC_DIR}/error/is_error.c \
@@ -45,6 +39,12 @@ SRCS	=	\
 			${SRC_DIR}/init/philo_thread_init.c \
 			${SRC_DIR}/thread/create_philo_thread.c \
 			${SRC_DIR}/thread/create_thread.c \
+			${SRC_DIR}/thread/is_program_stopped.c \
+			${SRC_DIR}/thread/is_program_stopped_main.c \
+			${SRC_DIR}/thread/is_program_stopped_philo.c \
+			${SRC_DIR}/thread/print_message.c \
+			${SRC_DIR}/thread/print_message_main.c \
+			${SRC_DIR}/thread/print_message_philo.c \
 			${SRC_DIR}/thread/wait_for_thread.c \
 			${SRC_DIR}/time_utils/get_time_diff.c \
 			${SRC_DIR}/time_utils/set_current_time.c \

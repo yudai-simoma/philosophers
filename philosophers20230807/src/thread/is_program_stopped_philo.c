@@ -6,13 +6,13 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 19:52:36 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 21:56:42 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:06:03 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "types.h"
-#include "action.h"
+#include "thread.h"
 
 /*
  * 死亡フラグの読み取りを行う

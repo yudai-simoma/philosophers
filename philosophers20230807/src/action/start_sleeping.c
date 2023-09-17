@@ -6,13 +6,13 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:16:00 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 17:44:53 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:05:06 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "config.h"
-#include "action.h"
+#include "thread.h"
 #include "time_utils.h"
 
 /*

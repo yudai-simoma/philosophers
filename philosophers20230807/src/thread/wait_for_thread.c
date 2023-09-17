@@ -6,14 +6,14 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:54:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 12:59:39 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:06:55 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "config.h"
 #include "time_utils.h"
-#include "action.h"
+#include "thread.h"
 
 /*
  * 死亡判定
