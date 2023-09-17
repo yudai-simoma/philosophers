@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:10:30 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 17:50:10 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:56:23 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static void	_free_main_thread(
 	free(philo_thread);
 }
 
+/**
+ * TODO
+ * ./philo 6 410 200 200 4 で死亡メッセージを出さずに終了させる_OK
+ * ./philo 6 405 200 200 で死亡メッセージの後に何も出力させない事_OK
+ * ./philo 31 500 200 200 で死なない事
+ * 引数のエラーチェックをする
+ * 
+*/
 int	main(int argc, char *argv[])
 {
 	t_main_thread	main_thread;

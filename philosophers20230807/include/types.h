@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/11 20:56:23 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:16:42 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo_thread {
 	int				philo_id;
 	t_philosopher	philo;
 	pthread_mutex_t	*main_forks;
+	pthread_mutex_t	*main_print_mutex;
 	atomic_long		*main_process_start_time;
 	atomic_bool		*main_is_dead;
 	atomic_bool		*main_is_error;
@@ -53,6 +54,7 @@ typedef struct s_args_info {
  */
 typedef struct s_main_thread {
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
 	t_args_info		args_info;
 	atomic_long		process_start_time;
 	atomic_bool		is_dead;
