@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/17 17:25:17 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/17 17:46:41 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,11 @@ NAME		=	philo
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
 LIBFT_DIR	=	./libft
 INCLUDE		=	-Iinclude -Ilibft
-
 
 # (
 #   find src -type f -name "*.c" | sort | sed 's/^src\//\${SRC_DIR}\//;s/$/ \\/'
@@ -78,10 +75,6 @@ fclean	:	clean
 	${RM} ${NAME}
 
 re		:	fclean all
-
-# Test rule
-test: CFLAGS += -fsanitize=thread
-test: re
 
 -include ${DEPS}
 
