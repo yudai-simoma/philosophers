@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:41:46 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:03:47 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:32:43 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ bool	is_program_stopped_main(t_main_thread *main_thread);
 bool	is_program_stopped_philo(t_philo_thread *philo_thread);
 
 bool	is_program_stopped(
-			atomic_bool is_dead,
-			atomic_int everyone_is_eaten);
+			const atomic_bool is_stopped,
+			const atomic_int everyone_is_eaten);
 
 void	print_message_main(
 			t_main_thread *main_thread,

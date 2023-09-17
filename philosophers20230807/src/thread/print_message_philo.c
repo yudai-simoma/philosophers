@@ -6,13 +6,16 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:08:08 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:06:38 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:34:46 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "thread.h"
 #include "x_wrapper.h"
 
+/*
+ * 哲学者の行動をターミナルに出力する（philo_thread用）
+*/
 void	print_message_philo(t_philo_thread *philo_thread, char *message)
 {
 	t_print	print;

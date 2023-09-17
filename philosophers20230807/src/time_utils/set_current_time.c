@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:38:41 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/11 21:10:56 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:35:26 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "x_wrapper.h"
 
 /*
- * 現在時間をミリ秒で取得する関数
+ * 現在時間をミリ秒で取得し、取得した値をセット関数
  */
 void	set_current_time(atomic_long *set_time, atomic_bool *is_error)
 {

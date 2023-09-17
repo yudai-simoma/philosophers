@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:36:42 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:04:33 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:22:34 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 /*
  * フォークを持つ
- */
+ * プログラムの終了判定をして、まだ続くようであればフォークのミューテックスをロック
+*/
 void	has_fork(
 	pthread_mutex_t *fork,
 	t_philo_thread *philo_thread)

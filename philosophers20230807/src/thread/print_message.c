@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:17:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:06:16 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:34:21 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /*
  * スタートからの経過時間を設定する
- */
+*/
 static int	_set_elapsed_time(
 	time_t *elapsed_time,
 	time_t start_time,
@@ -38,7 +38,7 @@ static int	_set_elapsed_time(
 
 /*
  * 哲学者の行動をターミナルに出力する
- */
+*/
 void	print_message(t_print print)
 {
 	time_t	elapsed_time;

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:24:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 22:16:42 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:30:10 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_philo_thread {
 	pthread_mutex_t	*main_forks;
 	pthread_mutex_t	*main_print_mutex;
 	atomic_long		*main_process_start_time;
-	atomic_bool		*main_is_dead;
+	atomic_bool		*main_is_stopped;
 	atomic_bool		*main_is_error;
 	atomic_int		*main_everyone_is_eaten;
 	atomic_int		*main_args_time_to_eat;
@@ -57,7 +57,7 @@ typedef struct s_main_thread {
 	pthread_mutex_t	print_mutex;
 	t_args_info		args_info;
 	atomic_long		process_start_time;
-	atomic_bool		is_dead;
+	atomic_bool		is_stopped;
 	atomic_bool		is_error;
 	atomic_int		everyone_is_eaten;
 }	t_main_thread;

@@ -16,6 +16,7 @@
 
 /**
  * 奇数の哲学者がフォークを持つ
+ * 奇数は、左→右でフォークを持つ
 */
 void	has_forks_odd_philosopher(t_philo_thread *philo_thread)
 {

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:09:52 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/06 20:38:59 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:28:21 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static int	_philosopher_init(
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * t_philo_threadに値を初期設定する関数
+*/
 int	philo_thread_init(
 	t_philo_thread **philo_thread,
 	const int number_of_philosophers,

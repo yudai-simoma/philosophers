@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:33:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 17:14:42 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:24:06 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	_wait_eating(
 
 /*
  * 食べる
- */
+ * プログラムの終了判定をして、まだ続くようであれば食事をする。
+*/
 void	start_eating(
 	pthread_mutex_t *left_fork,
 	pthread_mutex_t *right_fork,

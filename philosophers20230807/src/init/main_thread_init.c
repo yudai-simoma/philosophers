@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 17:13:32 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:30:10 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	_set_forks_mutex(
 
 /**
  * t_main_threadに値を初期設定する関数
- */
+*/
 int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 {
 	_args_info_init(argc, argv, &main_thread->args_info);
@@ -80,7 +80,7 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 			&main_thread->forks, main_thread->args_info.number_of_philosophers);
 		return (EXIT_FAILURE);
 	}
-	main_thread->is_dead = false;
+	main_thread->is_stopped = false;
 	main_thread->everyone_is_eaten
 		= main_thread->args_info.number_of_philosophers;
 	return (EXIT_SUCCESS);

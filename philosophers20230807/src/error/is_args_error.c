@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 11:16:48 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/07 22:24:58 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:24:46 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 #include "utils.h"
 
 /**
+ * 引数のエラーチェック
  * エラーの場合:true, エラー出ない場合:false
  */
-bool	is_error(int argc, char **argv)
+bool	is_args_error(int argc, char **argv)
 {
 	int			i;
 	size_t		j;

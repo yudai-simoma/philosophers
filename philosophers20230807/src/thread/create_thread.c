@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:58:03 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:00:33 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:33:55 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	_set_philo_thread_date(
 	philo_thread->main_forks = main_thread->forks;
 	philo_thread->main_print_mutex = &main_thread->print_mutex;
 	philo_thread->main_process_start_time = &main_thread->process_start_time;
-	philo_thread->main_is_dead = &main_thread->is_dead;
+	philo_thread->main_is_stopped = &main_thread->is_stopped;
 	philo_thread->main_is_error = &main_thread->is_error;
 	philo_thread->main_everyone_is_eaten = &main_thread->everyone_is_eaten;
 	philo_thread->main_args_time_to_eat = &main_thread->args_info.time_to_eat;
@@ -37,7 +37,7 @@ static void	_set_philo_thread_date(
 
 /**
  * 哲学者分のthreadを作成し、処理を実行
- */
+*/
 int	create_thread(
 	t_main_thread *main_thread,
 	t_philo_thread *philo_thread)

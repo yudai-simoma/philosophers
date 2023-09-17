@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/17 14:04:09 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/17 17:25:17 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS	=	\
 			${SRC_DIR}/action/has_forks_odd_philosopher.c \
 			${SRC_DIR}/action/start_eating.c \
 			${SRC_DIR}/action/start_sleeping.c \
-			${SRC_DIR}/error/is_error.c \
+			${SRC_DIR}/error/is_args_error.c \
 			${SRC_DIR}/init/main_thread_init.c \
 			${SRC_DIR}/init/philo_thread_init.c \
 			${SRC_DIR}/thread/create_philo_thread.c \

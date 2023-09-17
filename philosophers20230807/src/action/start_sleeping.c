@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:16:00 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:05:06 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:24:17 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /*
  * 寝る
+ * プログラムの終了判定をして、まだ続くようであれば睡眠をする。
  */
 void	start_sleeping(t_philo_thread *philo_thread)
 {

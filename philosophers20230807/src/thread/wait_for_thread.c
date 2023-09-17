@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:54:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:06:55 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:30:10 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	_check_philo_dead(
 		if (get_time_diff(philo_thread->philo.eat_start_time, elapsed_time)
 			> main_thread->args_info.time_to_die)
 		{
-			main_thread->is_dead = true;
+			main_thread->is_stopped = true;
 			print_message_main(main_thread, philo_thread->philo_id, MSG_DIE);
 			return ;
 		}

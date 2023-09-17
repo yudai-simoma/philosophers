@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 15:08:22 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:42:18 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:29:05 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "action.h"
 #include "thread.h"
 
+/**
+ * pthread_create()で設定される関数
+*/
 void	*create_philo_thread(void *tmp)
 {
 	t_philo_thread	*philo_thread;

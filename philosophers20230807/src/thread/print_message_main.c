@@ -6,13 +6,16 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:08:01 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/17 14:06:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:34:37 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "thread.h"
 #include "x_wrapper.h"
 
+/*
+ * 哲学者の行動をターミナルに出力する（main_thread用）
+*/
 void	print_message_main(
 	t_main_thread *main_thread,
 	int philo_id,
