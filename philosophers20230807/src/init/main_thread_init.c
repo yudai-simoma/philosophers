@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 23:11:27 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/09/16 22:17:47 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:49:35 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 #include "types.h"
 #include "config.h"
 #include "time_utils.h"
+
+static void	_forks_mutex_destroy(pthread_mutex_t **forks, const int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		pthread_mutex_destroy(&((*forks)[i]));
+		i++;
+	}
+}
 
 static void	_args_info_init(int argc, char **argv, t_args_info *args_info)
 {
@@ -42,7 +54,10 @@ static int	_set_forks_mutex(
 	while (i < number_of_philosophers)
 	{
 		if (pthread_mutex_init(&((*forks)[i]), NULL) != 0)
+		{
+			_forks_mutex_destroy(forks, i);
 			return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -55,14 +70,16 @@ int	main_thread_init(int argc, char **argv, t_main_thread *main_thread)
 {
 	_args_info_init(argc, argv, &main_thread->args_info);
 	if (_set_forks_mutex(&main_thread->forks,
-			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE
+			main_thread->args_info.number_of_philosophers) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	set_current_time(&main_thread->process_start_time, &main_thread->is_error);
+	if (main_thread->is_error
 		|| pthread_mutex_init(&main_thread->print_mutex, NULL) != 0)
 	{
+		_forks_mutex_destroy(
+			&main_thread->forks, main_thread->args_info.number_of_philosophers);
 		return (EXIT_FAILURE);
 	}
-	set_current_time(&main_thread->process_start_time, &main_thread->is_error);
-	if (main_thread->is_error)
-		return (EXIT_FAILURE);
 	main_thread->is_dead = false;
 	main_thread->everyone_is_eaten
 		= main_thread->args_info.number_of_times_each_philosopher_must_eat;

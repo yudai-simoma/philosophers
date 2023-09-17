@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 10:55:14 by yshimoma          #+#    #+#              #
-#    Updated: 2023/09/06 19:57:02 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/09/17 12:59:17 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS	=	\
 			${SRC_DIR}/init/philo_thread_init.c \
 			${SRC_DIR}/thread/create_philo_thread.c \
 			${SRC_DIR}/thread/create_thread.c \
+			${SRC_DIR}/thread/wait_for_thread.c \
 			${SRC_DIR}/time_utils/get_time_diff.c \
 			${SRC_DIR}/time_utils/set_current_time.c \
 			${SRC_DIR}/utils/ft_putendl.c \
